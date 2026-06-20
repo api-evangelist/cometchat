@@ -1,0 +1,102 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CometChat REST Management API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "apikey": {
+        "key": "apikey",
+        "value": "{{apikey}}",
+        "in": "header"
+      }
+    }
+  },
+  "variables": {
+    "baseUrl": "https://{{appId}}.api-{{region}}.cometchat.io/v3",
+    "appId": "APP_ID",
+    "region": "us",
+    "apikey": "YOUR_REST_API_KEY"
+  },
+  "items": [
+    {
+      "info": { "name": "Users", "type": "folder" },
+      "items": [
+        { "info": { "name": "List Users", "type": "http" }, "http": { "method": "GET", "url": "{{baseUrl}}/users" }, "docs": "List users with pagination and filtering." },
+        { "info": { "name": "Create User", "type": "http" }, "http": { "method": "POST", "url": "{{baseUrl}}/users", "body": { "type": "json", "data": "{\"uid\":\"cometchat-uid-1\",\"name\":\"Andrew Joseph\"}" } }, "docs": "Create a user." },
+        { "info": { "name": "Get User", "type": "http" }, "http": { "method": "GET", "url": "{{baseUrl}}/users/{uid}" }, "docs": "Retrieve a single user by UID." },
+        { "info": { "name": "Update User", "type": "http" }, "http": { "method": "PUT", "url": "{{baseUrl}}/users/{uid}", "body": { "type": "json", "data": "{\"name\":\"Andrew J.\"}" } }, "docs": "Update a user." },
+        { "info": { "name": "Delete User", "type": "http" }, "http": { "method": "DELETE", "url": "{{baseUrl}}/users/{uid}", "body": { "type": "json", "data": "{\"permanent\":true}" } }, "docs": "Delete a user." },
+        { "info": { "name": "Create Auth Token", "type": "http" }, "http": { "method": "POST", "url": "{{baseUrl}}/users/{uid}/auth_tokens", "body": { "type": "json", "data": "{\"force\":false}" } }, "docs": "Create an auth token for SDK login." }
+      ]
+    },
+    {
+      "info": { "name": "Groups", "type": "folder" },
+      "items": [
+        { "info": { "name": "List Groups", "type": "http" }, "http": { "method": "GET", "url": "{{baseUrl}}/groups" }, "docs": "List groups." },
+        { "info": { "name": "Create Group", "type": "http" }, "http": { "method": "POST", "url": "{{baseUrl}}/groups", "body": { "type": "json", "data": "{\"guid\":\"cometchat-guid-1\",\"name\":\"Hello Group!\",\"type\":\"public\"}" } }, "docs": "Create a public, private, or password group." },
+        { "info": { "name": "Get Group", "type": "http" }, "http": { "method": "GET", "url": "{{baseUrl}}/groups/{guid}" }, "docs": "Retrieve a group." },
+        { "info": { "name": "Update Group", "type": "http" }, "http": { "method": "PUT", "url": "{{baseUrl}}/groups/{guid}", "body": { "type": "json", "data": "{\"name\":\"Renamed Group\"}" } }, "docs": "Update a group." },
+        { "info": { "name": "Delete Group", "type": "http" }, "http": { "method": "DELETE", "url": "{{baseUrl}}/groups/{guid}" }, "docs": "Delete a group." }
+      ]
+    },
+    {
+      "info": { "name": "Group Members", "type": "folder" },
+      "items": [
+        { "info": { "name": "List Group Members", "type": "http" }, "http": { "method": "GET", "url": "{{baseUrl}}/groups/{guid}/members" }, "docs": "List members of a group." },
+        { "info": { "name": "Add Members", "type": "http" }, "http": { "method": "POST", "url": "{{baseUrl}}/groups/{guid}/members", "body": { "type": "json", "data": "{\"participants\":[\"cometchat-uid-1\"]}" } }, "docs": "Add participants, moderators, or admins." },
+        { "info": { "name": "Change Member Scope", "type": "http" }, "http": { "method": "PUT", "url": "{{baseUrl}}/groups/{guid}/members", "body": { "type": "json", "data": "{\"uid\":\"cometchat-uid-1\",\"scope\":\"moderator\"}" } }, "docs": "Change a member's scope." },
+        { "info": { "name": "Kick Member", "type": "http" }, "http": { "method": "DELETE", "url": "{{baseUrl}}/groups/{guid}/members/{uid}" }, "docs": "Remove a member from a group." }
+      ]
+    },
+    {
+      "info": { "name": "Messages", "type": "folder" },
+      "items": [
+        { "info": { "name": "List Messages", "type": "http" }, "http": { "method": "GET", "url": "{{baseUrl}}/messages" }, "docs": "List messages with filtering." },
+        { "info": { "name": "Send Message", "type": "http" }, "http": { "method": "POST", "url": "{{baseUrl}}/messages", "body": { "type": "json", "data": "{\"receiver\":\"cometchat-uid-2\",\"receiverType\":\"user\",\"category\":\"message\",\"type\":\"text\",\"data\":{\"text\":\"Hello world!\"},\"onBehalfOf\":\"cometchat-uid-1\"}" } }, "docs": "Send a one-to-one or group message." },
+        { "info": { "name": "Get Message", "type": "http" }, "http": { "method": "GET", "url": "{{baseUrl}}/messages/{id}" }, "docs": "Retrieve a message by ID." },
+        { "info": { "name": "Update Message", "type": "http" }, "http": { "method": "PUT", "url": "{{baseUrl}}/messages/{id}", "body": { "type": "json", "data": "{\"data\":{\"text\":\"Edited text\"}}" } }, "docs": "Edit a message." },
+        { "info": { "name": "Delete Message", "type": "http" }, "http": { "method": "DELETE", "url": "{{baseUrl}}/messages/{id}" }, "docs": "Delete a message." },
+        { "info": { "name": "Add Reaction", "type": "http" }, "http": { "method": "POST", "url": "{{baseUrl}}/messages/{id}/reactions/{reaction}" }, "docs": "Add an emoji reaction to a message." },
+        { "info": { "name": "Remove Reaction", "type": "http" }, "http": { "method": "DELETE", "url": "{{baseUrl}}/messages/{id}/reactions/{reaction}" }, "docs": "Remove an emoji reaction." }
+      ]
+    },
+    {
+      "info": { "name": "Conversations", "type": "folder" },
+      "items": [
+        { "info": { "name": "List Conversations", "type": "http" }, "http": { "method": "GET", "url": "{{baseUrl}}/conversations?conversationType=user" }, "docs": "List user or group conversations." },
+        { "info": { "name": "Get Conversation", "type": "http" }, "http": { "method": "GET", "url": "{{baseUrl}}/conversations/{conversationId}?conversationType=user" }, "docs": "Retrieve a single conversation." }
+      ]
+    },
+    {
+      "info": { "name": "Roles", "type": "folder" },
+      "items": [
+        { "info": { "name": "List Roles", "type": "http" }, "http": { "method": "GET", "url": "{{baseUrl}}/roles" }, "docs": "List custom roles." },
+        { "info": { "name": "Create Role", "type": "http" }, "http": { "method": "POST", "url": "{{baseUrl}}/roles", "body": { "type": "json", "data": "{\"role\":\"vip\",\"name\":\"VIP\"}" } }, "docs": "Create a custom role." },
+        { "info": { "name": "Get Role", "type": "http" }, "http": { "method": "GET", "url": "{{baseUrl}}/roles/{role}" }, "docs": "Retrieve a role." },
+        { "info": { "name": "Update Role", "type": "http" }, "http": { "method": "PUT", "url": "{{baseUrl}}/roles/{role}", "body": { "type": "json", "data": "{\"name\":\"VIP Plus\"}" } }, "docs": "Update a role." },
+        { "info": { "name": "Delete Role", "type": "http" }, "http": { "method": "DELETE", "url": "{{baseUrl}}/roles/{role}" }, "docs": "Delete a role." }
+      ]
+    },
+    {
+      "info": { "name": "Relationships", "type": "folder" },
+      "items": [
+        { "info": { "name": "Add Friends", "type": "http" }, "http": { "method": "POST", "url": "{{baseUrl}}/friends", "body": { "type": "json", "data": "{\"friends\":[\"cometchat-uid-2\"]}" } }, "docs": "Add friends for a user." },
+        { "info": { "name": "List Friends", "type": "http" }, "http": { "method": "GET", "url": "{{baseUrl}}/users/{uid}/friends" }, "docs": "List a user's friends." },
+        { "info": { "name": "Block Users", "type": "http" }, "http": { "method": "POST", "url": "{{baseUrl}}/users/{uid}/blockedusers", "body": { "type": "json", "data": "{\"blockedUids\":[\"cometchat-uid-3\"]}" } }, "docs": "Block users for a user." },
+        { "info": { "name": "Ban Users", "type": "http" }, "http": { "method": "POST", "url": "{{baseUrl}}/groups/{guid}/bannedusers", "body": { "type": "json", "data": "{\"uids\":[\"cometchat-uid-3\"]}" } }, "docs": "Ban users from a group." }
+      ]
+    },
+    {
+      "info": { "name": "Webhooks", "type": "folder" },
+      "items": [
+        { "info": { "name": "List Webhooks", "type": "http" }, "http": { "method": "GET", "url": "{{baseUrl}}/webhooks" }, "docs": "List webhooks." },
+        { "info": { "name": "Create Webhook", "type": "http" }, "http": { "method": "POST", "url": "{{baseUrl}}/webhooks", "body": { "type": "json", "data": "{\"url\":\"https://example.com/cometchat-hook\",\"method\":\"POST\",\"triggers\":[\"message_sent\",\"user_created\"]}" } }, "docs": "Register a webhook with event triggers." },
+        { "info": { "name": "List Triggers", "type": "http" }, "http": { "method": "GET", "url": "{{baseUrl}}/webhooks/{webhookId}/triggers" }, "docs": "List triggers for a webhook." },
+        { "info": { "name": "Add Triggers", "type": "http" }, "http": { "method": "POST", "url": "{{baseUrl}}/webhooks/{webhookId}/triggers", "body": { "type": "json", "data": "{\"triggers\":[\"group_member_added\"]}" } }, "docs": "Add triggers to a webhook." }
+      ]
+    }
+  ]
+}

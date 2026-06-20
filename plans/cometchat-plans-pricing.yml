@@ -1,0 +1,192 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: CometChat
+providerId: cometchat
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: true
+tags:
+- Chat
+- Messaging
+- Voice
+- Video
+- SDK
+- Realtime
+- Plans
+description: >-
+  CometChat prices by Monthly Active Users (MAU) across four tiers - Build
+  (free), Basic, Advanced, and Enterprise. Each paid tier includes a base MAU
+  allotment plus a percentage of MAU as included concurrent connections, with
+  overage billed per additional MAU and per additional concurrent connection.
+  Messages, storage, and files are unlimited on all tiers. Higher tiers add AI
+  moderation and insights, multi-tenancy, compliance (HIPAA/BAA), SSO, and
+  white-label domains. Annual billing is available.
+notes: >-
+  MAU base prices change with promotions and selected MAU tier; the figures
+  below are representative entry points from the public pricing page. Verify
+  current pricing and tier MAU allotments at cometchat.com/pricing during
+  reconciliation.
+sources:
+- https://www.cometchat.com/pricing
+- https://www.cometchat.com/docs
+plans:
+- id: cometchat-build
+  name: Build
+  type: free
+  description: >-
+    Free tier for development and testing with all core chat features, no
+    credit card required.
+  entries:
+  - label: Monthly Active Users
+    name: build_mau
+    type: limit
+    metric: mau
+    limit: 100
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0
+    userMultiplied: false
+  - label: Concurrent Connections
+    name: build_concurrent
+    type: limit
+    metric: connections
+    limit: 25
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0
+    userMultiplied: false
+  elements:
+  - name: Chat & Messaging
+  - name: Voice & Video Calling
+  - name: Client SDKs
+  - name: REST Management API
+  - name: Webhooks
+- id: cometchat-basic
+  name: Basic
+  type: subscription
+  description: >-
+    Entry paid tier with rich in-app chat, push notifications, basic
+    moderation, and the global EDGE delivery network.
+  entries:
+  - label: Base Subscription (per MAU tier)
+    name: basic_base
+    type: flat
+    metric: subscription
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: from ~$239/month per MAU tier
+    userMultiplied: false
+  - label: MAU Overage
+    name: basic_mau_overage
+    type: usage
+    metric: mau
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0.10 per additional MAU
+    userMultiplied: false
+  - label: Included Concurrent Connections
+    name: basic_concurrent
+    type: limit
+    metric: connections
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 5% of MAU included; $1 per additional connection
+    userMultiplied: false
+  elements:
+  - name: Rich In-App Chat
+  - name: Push Notifications
+  - name: Basic Moderation
+  - name: Global EDGE Network
+- id: cometchat-advanced
+  name: Advanced
+  type: subscription
+  description: >-
+    Most popular tier adding AI moderation, smart replies and summaries,
+    multi-tenancy, advanced search, message translation, and HIPAA/BAA
+    compliance.
+  entries:
+  - label: Base Subscription (per MAU tier)
+    name: advanced_base
+    type: flat
+    metric: subscription
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: from ~$339/month per MAU tier
+    userMultiplied: false
+  - label: MAU Overage
+    name: advanced_mau_overage
+    type: usage
+    metric: mau
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0.10 per additional MAU
+    userMultiplied: false
+  - label: Included Concurrent Connections
+    name: advanced_concurrent
+    type: limit
+    metric: connections
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 5% of MAU included; $1 per additional connection
+    userMultiplied: false
+  elements:
+  - name: AI Rule-Based Moderation
+  - name: AI Smart Replies & Summaries
+  - name: Email & SMS Notifications
+  - name: Multi-Tenancy
+  - name: Advanced Search
+  - name: Message Translation
+  - name: HIPAA / BAA Compliance
+  - name: In-Depth Insights
+- id: cometchat-enterprise
+  name: Enterprise
+  type: enterprise
+  description: >-
+    Custom tier with zero overage charges, OpenAI-powered moderation and
+    insights, SSO (SAML, LDAP), white-label custom domain, and dedicated
+    infrastructure. Contact sales.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales (from ~$1,249/month for 10,000+ MAU)
+    userMultiplied: false
+  - label: Included Concurrent Connections
+    name: enterprise_concurrent
+    type: limit
+    metric: connections
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 10% of MAU included; no overage charges
+    userMultiplied: false
+  elements:
+  - name: Zero Overages
+  - name: OpenAI-Powered Moderation & Insights
+  - name: SSO (SAML, LDAP)
+  - name: White-Label Custom Domain
+  - name: Dedicated Infrastructure
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

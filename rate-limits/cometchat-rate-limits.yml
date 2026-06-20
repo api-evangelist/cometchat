@@ -1,0 +1,65 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: CometChat
+providerId: cometchat
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: false
+tags:
+- Chat
+- Messaging
+- Voice
+- Video
+- SDK
+- Realtime
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  CometChat enforces account-level limits scoped to a single app and region.
+  The primary commercial limits are Monthly Active Users (MAU) and concurrent
+  WebSocket connections, both set by the subscription tier; exceeding them
+  triggers overage billing rather than hard rejection on paid plans. The REST
+  Management API additionally applies per-app request throttling. Specific
+  per-endpoint request-per-second values are not publicly enumerated and are
+  not reconciled in this artifact.
+notes: >-
+  Confirm REST request throttling thresholds, pagination caps (perPage max),
+  and concurrent-connection ceilings per tier with CometChat support or the
+  dashboard during reconciliation. MAU and connection allotments are defined
+  by the active plan in plans/cometchat-plans-pricing.yml.
+sources:
+- https://www.cometchat.com/docs/rest-api/chat-apis
+- https://www.cometchat.com/pricing
+responseCodes:
+  throttled: 429
+limits:
+- name: Monthly Active Users (MAU)
+  scope: account
+  metric: mau
+  limit: per plan
+  notes: Distinct users active per month; overage billed at $0.10/MAU on paid tiers.
+- name: Concurrent Connections
+  scope: account
+  metric: connections
+  limit: per plan
+  notes: Included as a percentage of MAU (5% Basic/Advanced, 10% Enterprise); $1 per extra connection except Enterprise.
+- name: REST API Requests
+  scope: app
+  metric: requests
+  limit: see provider documentation
+  notes: Per-app request throttling on the v3 Management API; specific RPS not publicly documented.
+- name: Pagination Page Size
+  scope: request
+  metric: items
+  limit: 100
+  notes: perPage query parameter caps list responses (default 25).
+policies:
+- name: Tiered Limits
+  description: MAU and concurrent-connection allotments scale with the subscription tier; Enterprise removes overage charges.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter on HTTP 429 and honor Retry-After when present.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

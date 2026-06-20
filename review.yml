@@ -1,0 +1,135 @@
+aid: cometchat
+name: CometChat
+review:
+  question: Does CometChat expose a documented public WebSocket API surface that can be modeled with AsyncAPI?
+  answer: partial
+  date: '2026-06-20'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    CometChat operates a real realtime layer over WebSockets, but it is a
+    managed transport consumed exclusively through the CometChat client SDKs
+    (JavaScript, React, React Native, Android, iOS, Flutter, Ionic). The SDK
+    establishes and maintains the socket via connect()/disconnect() and an
+    autoEstablishSocketConnection() toggle. CometChat does NOT publish a raw
+    wss:// endpoint, a connection URL, a handshake/authentication frame, or a
+    message payload schema for the socket. Because no channel, message, or
+    binding can be documented from public sources without invention, no
+    AsyncAPI document was authored. An AsyncAPI spec should be created only if
+    CometChat later publishes the socket protocol, or if the protocol is
+    captured under a future reverse-engineering scope.
+findings:
+  summary: |
+    CometChat is an in-app messaging platform with two distinct API surfaces.
+    (1) A documented server-side REST Management API (v3) hosted per app and
+    region at https://{appId}.api-{region}.cometchat.io/v3, authenticated with
+    a Rest API Key in the `apikey` header, covering users, auth tokens, groups,
+    group members, messages, conversations, reactions, roles, friends, blocked
+    users, banned users, and webhooks. This REST surface is fully modeled in
+    openapi/cometchat-openapi.yml. (2) A managed realtime WebSocket layer that
+    delivers messages, presence, typing indicators, and read receipts to end
+    users, but ONLY through the client SDKs - the wss endpoint and message
+    protocol are not publicly documented and therefore not modeled as AsyncAPI.
+    Voice and video calling are likewise delivered via the SDKs (WebRTC) and
+    are out of scope for both OpenAPI and AsyncAPI here.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://{appId}.api-{region}.cometchat.io/v3
+      documented: true
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: Realtime delivery exists and is real, but the socket URL, handshake, and message schema are encapsulated inside the client SDKs and not published. Managed via connect()/disconnect() / autoEstablishSocketConnection().
+    - protocol: Webhooks
+      scheme: https
+      note: Outbound HTTP callbacks to customer endpoints driven by event triggers (message_sent, user_created, group_member_added, etc.); configured via the REST Management API.
+      documented: true
+  endpointsConfirmedRest:
+    - GET    https://{appId}.api-{region}.cometchat.io/v3/users
+    - POST   https://{appId}.api-{region}.cometchat.io/v3/users
+    - GET    https://{appId}.api-{region}.cometchat.io/v3/users/{uid}
+    - PUT    https://{appId}.api-{region}.cometchat.io/v3/users/{uid}
+    - DELETE https://{appId}.api-{region}.cometchat.io/v3/users/{uid}
+    - PUT    https://{appId}.api-{region}.cometchat.io/v3/users/{uid}/deactivate
+    - PUT    https://{appId}.api-{region}.cometchat.io/v3/users/{uid}/reactivate
+    - GET    https://{appId}.api-{region}.cometchat.io/v3/users/{uid}/auth_tokens
+    - POST   https://{appId}.api-{region}.cometchat.io/v3/users/{uid}/auth_tokens
+    - DELETE https://{appId}.api-{region}.cometchat.io/v3/users/{uid}/auth_tokens
+    - GET    https://{appId}.api-{region}.cometchat.io/v3/users/{uid}/auth_tokens/{authToken}
+    - DELETE https://{appId}.api-{region}.cometchat.io/v3/users/{uid}/auth_tokens/{authToken}
+    - GET    https://{appId}.api-{region}.cometchat.io/v3/groups
+    - POST   https://{appId}.api-{region}.cometchat.io/v3/groups
+    - GET    https://{appId}.api-{region}.cometchat.io/v3/groups/{guid}
+    - PUT    https://{appId}.api-{region}.cometchat.io/v3/groups/{guid}
+    - DELETE https://{appId}.api-{region}.cometchat.io/v3/groups/{guid}
+    - GET    https://{appId}.api-{region}.cometchat.io/v3/groups/{guid}/members
+    - POST   https://{appId}.api-{region}.cometchat.io/v3/groups/{guid}/members
+    - PUT    https://{appId}.api-{region}.cometchat.io/v3/groups/{guid}/members
+    - DELETE https://{appId}.api-{region}.cometchat.io/v3/groups/{guid}/members/{uid}
+    - GET    https://{appId}.api-{region}.cometchat.io/v3/messages
+    - POST   https://{appId}.api-{region}.cometchat.io/v3/messages
+    - GET    https://{appId}.api-{region}.cometchat.io/v3/messages/{id}
+    - PUT    https://{appId}.api-{region}.cometchat.io/v3/messages/{id}
+    - DELETE https://{appId}.api-{region}.cometchat.io/v3/messages/{id}
+    - POST   https://{appId}.api-{region}.cometchat.io/v3/messages/{id}/reactions/{reaction}
+    - DELETE https://{appId}.api-{region}.cometchat.io/v3/messages/{id}/reactions/{reaction}
+    - GET    https://{appId}.api-{region}.cometchat.io/v3/conversations
+    - GET    https://{appId}.api-{region}.cometchat.io/v3/conversations/{conversationId}
+    - GET    https://{appId}.api-{region}.cometchat.io/v3/roles
+    - POST   https://{appId}.api-{region}.cometchat.io/v3/roles
+    - GET    https://{appId}.api-{region}.cometchat.io/v3/roles/{role}
+    - PUT    https://{appId}.api-{region}.cometchat.io/v3/roles/{role}
+    - DELETE https://{appId}.api-{region}.cometchat.io/v3/roles/{role}
+    - POST   https://{appId}.api-{region}.cometchat.io/v3/friends
+    - GET    https://{appId}.api-{region}.cometchat.io/v3/users/{uid}/friends
+    - DELETE https://{appId}.api-{region}.cometchat.io/v3/users/{uid}/friends
+    - GET    https://{appId}.api-{region}.cometchat.io/v3/users/{uid}/blockedusers
+    - POST   https://{appId}.api-{region}.cometchat.io/v3/users/{uid}/blockedusers
+    - DELETE https://{appId}.api-{region}.cometchat.io/v3/users/{uid}/blockedusers
+    - GET    https://{appId}.api-{region}.cometchat.io/v3/groups/{guid}/bannedusers
+    - POST   https://{appId}.api-{region}.cometchat.io/v3/groups/{guid}/bannedusers
+    - DELETE https://{appId}.api-{region}.cometchat.io/v3/groups/{guid}/bannedusers/{uid}
+    - GET    https://{appId}.api-{region}.cometchat.io/v3/webhooks
+    - POST   https://{appId}.api-{region}.cometchat.io/v3/webhooks
+    - GET    https://{appId}.api-{region}.cometchat.io/v3/webhooks/{webhookId}
+    - PUT    https://{appId}.api-{region}.cometchat.io/v3/webhooks/{webhookId}
+    - DELETE https://{appId}.api-{region}.cometchat.io/v3/webhooks/{webhookId}
+    - GET    https://{appId}.api-{region}.cometchat.io/v3/webhooks/{webhookId}/triggers
+    - POST   https://{appId}.api-{region}.cometchat.io/v3/webhooks/{webhookId}/triggers
+    - DELETE https://{appId}.api-{region}.cometchat.io/v3/webhooks/{webhookId}/triggers
+sources:
+  - url: https://www.cometchat.com/docs/rest-api/chat-apis
+    type: APIReference
+    note: REST Management API overview; base URL https://{appId}.api-{region}.cometchat.io/v3, apikey header, regions us/eu/in.
+  - url: https://www.cometchat.com/docs/rest-api/users
+    type: Documentation
+    note: Users, auth tokens, deactivate/reactivate.
+  - url: https://www.cometchat.com/docs/rest-api/groups
+    type: Documentation
+    note: Groups and group-members CRUD and scope changes.
+  - url: https://www.cometchat.com/docs/rest-api/messages/list-messages
+    type: APIReference
+    note: Messages, threaded messages, reactions.
+  - url: https://www.cometchat.com/docs/rest-api/conversations
+    type: Documentation
+    note: Conversations and read/delivered/unread state management.
+  - url: https://www.cometchat.com/docs/rest-api/management-apis/webhooks/overview
+    type: Documentation
+    note: Webhook registration and trigger management.
+  - url: https://www.cometchat.com/docs/sdk/javascript/managing-web-sockets-connections-manually
+    type: Documentation
+    note: Confirms a managed WebSocket layer exists but is consumed only via the SDK; no raw wss endpoint or protocol published.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    The REST Management API is documented and was modeled as OpenAPI 3.0.1.
+    The realtime WebSocket layer is real but undocumented at the protocol
+    level (SDK-encapsulated), so no AsyncAPI document was authored to avoid
+    fabricating channels, messages, or bindings. The Realtime & Client SDK is
+    catalogued as a sub-API in apis.yml with an AsyncAPI property placeholder
+    so a spec can be added if CometChat publishes the socket protocol.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

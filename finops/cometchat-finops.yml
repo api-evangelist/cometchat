@@ -1,0 +1,105 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: CometChat
+providerId: cometchat
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: true
+tags:
+- Chat
+- Messaging
+- Voice
+- Video
+- SDK
+- Realtime
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of CometChat spend. CometChat bills a tier-based subscription
+  anchored to a Monthly Active Users (MAU) allotment, with overage charged per
+  additional MAU ($0.10) and per additional concurrent WebSocket connection
+  ($1) above the included percentage of MAU. Messages, storage, and files are
+  unlimited and not separately metered. Enterprise removes overage charges.
+notes: >-
+  MAU is the dominant cost driver; concurrent connections are the secondary
+  driver. Verify current per-MAU and per-connection overage rates and tier
+  allotments against the CometChat pricing page during reconciliation.
+sources:
+- https://www.cometchat.com/pricing
+- https://www.cometchat.com/docs
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: CometChat
+serviceCategory: Communication and Messaging
+billingModel:
+  pricingCategory: Subscription-Based
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Usage
+  - Purchase
+  - Adjustment
+focusColumns:
+  ServiceName: CometChat
+  ServiceCategory: Communication and Messaging
+  ProviderName: CometChat
+  PublisherName: CometChat
+  InvoiceIssuerName: CometChat
+  BillingCurrency: USD
+  ChargeCategory: Usage
+  PricingCategory: Subscription-Based
+meters:
+- name: monthly_active_users
+  description: Distinct users active in a billing month; base allotment per tier with $0.10 per-MAU overage.
+  unit: users
+  aggregation: max
+  dimensions:
+  - account
+  - app
+- name: mau_overage
+  description: MAU above the tier allotment, billed at $0.10 per user on paid tiers.
+  unit: users
+  aggregation: sum
+  dimensions:
+  - account
+  - app
+- name: concurrent_connections
+  description: Peak simultaneous WebSocket connections; included as a percentage of MAU per tier.
+  unit: connections
+  aggregation: max
+  dimensions:
+  - account
+  - app
+- name: connection_overage
+  description: Concurrent connections above the included allotment, billed at $1 each except on Enterprise.
+  unit: connections
+  aggregation: sum
+  dimensions:
+  - account
+  - app
+- name: subscription_base
+  description: Fixed monthly base fee for the selected tier and MAU bracket.
+  unit: months
+  aggregation: sum
+  dimensions:
+  - account
+  - tier
+principles:
+- name: Visibility
+  description: Track MAU and peak concurrent connections per app in the CometChat dashboard against the tier allotment.
+- name: Allocation
+  description: Use separate apps (App IDs) per product or environment to attribute MAU and connection cost to teams.
+- name: Optimization
+  description: Right-size the MAU tier to actual active users, manage WebSocket connections manually to avoid idle sockets, and consider Enterprise to eliminate overage when usage is high and spiky.
+- name: Accountability
+  description: Review monthly MAU and connection overage against the budget; reconcile annual vs. monthly billing for committed-use savings.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

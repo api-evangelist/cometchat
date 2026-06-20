@@ -1,0 +1,1611 @@
+openapi: 3.0.1
+info:
+  title: CometChat REST Management API
+  description: >-
+    Server-side REST Management API (v3) for CometChat in-app messaging. Manages
+    users, authentication tokens, groups, group members, messages, conversations,
+    reactions, roles, friends, blocked and banned users, and webhooks for a
+    CometChat app. The API is scoped to a single app and region; the host is
+    derived from your App ID and the region your app is provisioned in
+    (us, eu, in). All requests authenticate with a Rest API Key (fullAccess
+    scope) passed in the `apikey` header. Realtime delivery to end users is
+    handled separately by the CometChat client SDKs over a managed WebSocket
+    layer and is not part of this REST surface.
+  termsOfService: https://www.cometchat.com/terms-and-conditions
+  contact:
+    name: CometChat Support
+    url: https://www.cometchat.com/contact-sales
+  version: '3.0'
+servers:
+  - url: https://{appId}.api-{region}.cometchat.io/v3
+    description: Per-app, per-region CometChat REST Management API host
+    variables:
+      appId:
+        default: APP_ID
+        description: Your CometChat App ID from the dashboard
+      region:
+        default: us
+        enum:
+          - us
+          - eu
+          - in
+        description: The region your CometChat app is provisioned in
+security:
+  - apiKeyAuth: []
+tags:
+  - name: Users
+    description: Create and manage app users
+  - name: Auth Tokens
+    description: Per-user authentication tokens for SDK login
+  - name: Groups
+    description: Create and manage groups
+  - name: Group Members
+    description: Add, list, kick, and scope group members
+  - name: Messages
+    description: Send, list, edit, and delete messages
+  - name: Reactions
+    description: Add and remove message reactions
+  - name: Conversations
+    description: List conversations and manage read/delivered state
+  - name: Roles
+    description: Custom roles and permissions
+  - name: Friends
+    description: User-to-user friend relationships
+  - name: Blocked Users
+    description: Block and unblock users
+  - name: Banned Users
+    description: Ban and unban users from groups
+  - name: Webhooks
+    description: Register webhooks and manage event triggers
+paths:
+  /users:
+    get:
+      operationId: listUsers
+      tags:
+        - Users
+      summary: List users
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PerPage'
+        - name: searchKey
+          in: query
+          schema:
+            type: string
+          description: Filter users by UID or name.
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [online, offline]
+      responses:
+        '200':
+          description: A paginated list of users.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserList'
+    post:
+      operationId: createUser
+      tags:
+        - Users
+      summary: Create a user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+      responses:
+        '200':
+          description: The created user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+  /users/{uid}:
+    parameters:
+      - $ref: '#/components/parameters/Uid'
+    get:
+      operationId: getUser
+      tags:
+        - Users
+      summary: Get a user
+      responses:
+        '200':
+          description: The requested user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+    put:
+      operationId: updateUser
+      tags:
+        - Users
+      summary: Update a user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserRequest'
+      responses:
+        '200':
+          description: The updated user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+    delete:
+      operationId: deleteUser
+      tags:
+        - Users
+      summary: Delete a user
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                permanent:
+                  type: boolean
+                  description: Permanently delete user data when true.
+      responses:
+        '200':
+          description: Deletion acknowledgement.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Acknowledgement'
+  /users/{uid}/deactivate:
+    parameters:
+      - $ref: '#/components/parameters/Uid'
+    put:
+      operationId: deactivateUser
+      tags:
+        - Users
+      summary: Deactivate a user
+      responses:
+        '200':
+          description: The deactivated user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+  /users/{uid}/reactivate:
+    parameters:
+      - $ref: '#/components/parameters/Uid'
+    put:
+      operationId: reactivateUser
+      tags:
+        - Users
+      summary: Reactivate a user
+      responses:
+        '200':
+          description: The reactivated user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+  /users/{uid}/auth_tokens:
+    parameters:
+      - $ref: '#/components/parameters/Uid'
+    get:
+      operationId: listAuthTokens
+      tags:
+        - Auth Tokens
+      summary: List auth tokens for a user
+      responses:
+        '200':
+          description: A list of auth tokens.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthTokenList'
+    post:
+      operationId: createAuthToken
+      tags:
+        - Auth Tokens
+      summary: Create an auth token for a user
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                force:
+                  type: boolean
+                  description: Create a new token even if one already exists.
+      responses:
+        '200':
+          description: The created auth token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthTokenResponse'
+    delete:
+      operationId: flushAuthTokens
+      tags:
+        - Auth Tokens
+      summary: Flush all auth tokens for a user
+      responses:
+        '200':
+          description: Acknowledgement.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Acknowledgement'
+  /users/{uid}/auth_tokens/{authToken}:
+    parameters:
+      - $ref: '#/components/parameters/Uid'
+      - name: authToken
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: getAuthToken
+      tags:
+        - Auth Tokens
+      summary: Get an auth token
+      responses:
+        '200':
+          description: The requested auth token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthTokenResponse'
+    delete:
+      operationId: deleteAuthToken
+      tags:
+        - Auth Tokens
+      summary: Delete an auth token
+      responses:
+        '200':
+          description: Acknowledgement.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Acknowledgement'
+  /groups:
+    get:
+      operationId: listGroups
+      tags:
+        - Groups
+      summary: List groups
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PerPage'
+        - name: searchKey
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A paginated list of groups.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupList'
+    post:
+      operationId: createGroup
+      tags:
+        - Groups
+      summary: Create a group
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateGroupRequest'
+      responses:
+        '200':
+          description: The created group.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupResponse'
+  /groups/{guid}:
+    parameters:
+      - $ref: '#/components/parameters/Guid'
+    get:
+      operationId: getGroup
+      tags:
+        - Groups
+      summary: Get a group
+      responses:
+        '200':
+          description: The requested group.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupResponse'
+    put:
+      operationId: updateGroup
+      tags:
+        - Groups
+      summary: Update a group
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateGroupRequest'
+      responses:
+        '200':
+          description: The updated group.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupResponse'
+    delete:
+      operationId: deleteGroup
+      tags:
+        - Groups
+      summary: Delete a group
+      responses:
+        '200':
+          description: Acknowledgement.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Acknowledgement'
+  /groups/{guid}/members:
+    parameters:
+      - $ref: '#/components/parameters/Guid'
+    get:
+      operationId: listGroupMembers
+      tags:
+        - Group Members
+      summary: List group members
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PerPage'
+        - name: scopes
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              enum: [admin, moderator, participant]
+          style: form
+          explode: true
+      responses:
+        '200':
+          description: A list of group members.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupMemberList'
+    post:
+      operationId: addGroupMembers
+      tags:
+        - Group Members
+      summary: Add members to a group
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddMembersRequest'
+      responses:
+        '200':
+          description: Result of the add-members operation per UID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddMembersResponse'
+    put:
+      operationId: changeMemberScope
+      tags:
+        - Group Members
+      summary: Change a member's scope
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangeScopeRequest'
+      responses:
+        '200':
+          description: Acknowledgement.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Acknowledgement'
+  /groups/{guid}/members/{uid}:
+    parameters:
+      - $ref: '#/components/parameters/Guid'
+      - $ref: '#/components/parameters/Uid'
+    delete:
+      operationId: kickGroupMember
+      tags:
+        - Group Members
+      summary: Kick a member from a group
+      responses:
+        '200':
+          description: Acknowledgement.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Acknowledgement'
+  /messages:
+    get:
+      operationId: listMessages
+      tags:
+        - Messages
+      summary: List messages
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PerPage'
+        - name: searchKey
+          in: query
+          schema:
+            type: string
+        - name: receiverType
+          in: query
+          schema:
+            type: string
+            enum: [user, group]
+        - name: category
+          in: query
+          schema:
+            type: string
+            enum: [message, action, call, custom]
+        - name: type
+          in: query
+          schema:
+            type: string
+        - name: sentAt
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: affix
+          in: query
+          schema:
+            type: string
+            enum: [append, prepend]
+      responses:
+        '200':
+          description: A list of messages.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageList'
+    post:
+      operationId: sendMessage
+      tags:
+        - Messages
+      summary: Send a message
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendMessageRequest'
+      responses:
+        '200':
+          description: The sent message.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+  /messages/{id}:
+    parameters:
+      - $ref: '#/components/parameters/MessageId'
+    get:
+      operationId: getMessage
+      tags:
+        - Messages
+      summary: Get a message
+      responses:
+        '200':
+          description: The requested message.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+    put:
+      operationId: updateMessage
+      tags:
+        - Messages
+      summary: Update a message
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMessageRequest'
+      responses:
+        '200':
+          description: The updated message.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+    delete:
+      operationId: deleteMessage
+      tags:
+        - Messages
+      summary: Delete a message
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                permanent:
+                  type: boolean
+      responses:
+        '200':
+          description: Acknowledgement.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Acknowledgement'
+  /messages/{id}/reactions/{reaction}:
+    parameters:
+      - $ref: '#/components/parameters/MessageId'
+      - name: reaction
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The emoji unicode for the reaction.
+    post:
+      operationId: addReaction
+      tags:
+        - Reactions
+      summary: Add a reaction to a message
+      responses:
+        '200':
+          description: The updated reaction set.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Acknowledgement'
+    delete:
+      operationId: removeReaction
+      tags:
+        - Reactions
+      summary: Remove a reaction from a message
+      responses:
+        '200':
+          description: Acknowledgement.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Acknowledgement'
+  /conversations:
+    get:
+      operationId: listConversations
+      tags:
+        - Conversations
+      summary: List conversations
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PerPage'
+        - name: conversationType
+          in: query
+          schema:
+            type: string
+            enum: [user, group]
+      responses:
+        '200':
+          description: A list of conversations.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversationList'
+  /conversations/{conversationId}:
+    parameters:
+      - name: conversationId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: getConversation
+      tags:
+        - Conversations
+      summary: Get a conversation
+      parameters:
+        - name: conversationType
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [user, group]
+      responses:
+        '200':
+          description: The requested conversation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversationResponse'
+  /roles:
+    get:
+      operationId: listRoles
+      tags:
+        - Roles
+      summary: List roles
+      responses:
+        '200':
+          description: A list of roles.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoleList'
+    post:
+      operationId: createRole
+      tags:
+        - Roles
+      summary: Create a role
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRoleRequest'
+      responses:
+        '200':
+          description: The created role.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoleResponse'
+  /roles/{role}:
+    parameters:
+      - name: role
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: getRole
+      tags:
+        - Roles
+      summary: Get a role
+      responses:
+        '200':
+          description: The requested role.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoleResponse'
+    put:
+      operationId: updateRole
+      tags:
+        - Roles
+      summary: Update a role
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRoleRequest'
+      responses:
+        '200':
+          description: The updated role.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoleResponse'
+    delete:
+      operationId: deleteRole
+      tags:
+        - Roles
+      summary: Delete a role
+      responses:
+        '200':
+          description: Acknowledgement.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Acknowledgement'
+  /friends:
+    post:
+      operationId: addFriends
+      tags:
+        - Friends
+      summary: Add friends for a user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FriendsRequest'
+      responses:
+        '200':
+          description: Acknowledgement.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Acknowledgement'
+  /users/{uid}/friends:
+    parameters:
+      - $ref: '#/components/parameters/Uid'
+    get:
+      operationId: listFriends
+      tags:
+        - Friends
+      summary: List a user's friends
+      responses:
+        '200':
+          description: A list of friends.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserList'
+    delete:
+      operationId: removeFriends
+      tags:
+        - Friends
+      summary: Remove friends for a user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FriendsRequest'
+      responses:
+        '200':
+          description: Acknowledgement.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Acknowledgement'
+  /users/{uid}/blockedusers:
+    parameters:
+      - $ref: '#/components/parameters/Uid'
+    get:
+      operationId: listBlockedUsers
+      tags:
+        - Blocked Users
+      summary: List a user's blocked users
+      responses:
+        '200':
+          description: A list of blocked users.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserList'
+    post:
+      operationId: blockUsers
+      tags:
+        - Blocked Users
+      summary: Block users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BlockUsersRequest'
+      responses:
+        '200':
+          description: Acknowledgement.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Acknowledgement'
+    delete:
+      operationId: unblockUsers
+      tags:
+        - Blocked Users
+      summary: Unblock users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BlockUsersRequest'
+      responses:
+        '200':
+          description: Acknowledgement.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Acknowledgement'
+  /groups/{guid}/bannedusers:
+    parameters:
+      - $ref: '#/components/parameters/Guid'
+    get:
+      operationId: listBannedUsers
+      tags:
+        - Banned Users
+      summary: List users banned from a group
+      responses:
+        '200':
+          description: A list of banned users.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupMemberList'
+    post:
+      operationId: banUsers
+      tags:
+        - Banned Users
+      summary: Ban users from a group
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BanUsersRequest'
+      responses:
+        '200':
+          description: Acknowledgement.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Acknowledgement'
+  /groups/{guid}/bannedusers/{uid}:
+    parameters:
+      - $ref: '#/components/parameters/Guid'
+      - $ref: '#/components/parameters/Uid'
+    delete:
+      operationId: unbanUser
+      tags:
+        - Banned Users
+      summary: Unban a user from a group
+      responses:
+        '200':
+          description: Acknowledgement.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Acknowledgement'
+  /webhooks:
+    get:
+      operationId: listWebhooks
+      tags:
+        - Webhooks
+      summary: List webhooks
+      responses:
+        '200':
+          description: A list of webhooks.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookList'
+    post:
+      operationId: createWebhook
+      tags:
+        - Webhooks
+      summary: Create a webhook
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateWebhookRequest'
+      responses:
+        '200':
+          description: The created webhook.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponse'
+  /webhooks/{webhookId}:
+    parameters:
+      - name: webhookId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: getWebhook
+      tags:
+        - Webhooks
+      summary: Get a webhook
+      responses:
+        '200':
+          description: The requested webhook.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponse'
+    put:
+      operationId: updateWebhook
+      tags:
+        - Webhooks
+      summary: Update a webhook
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateWebhookRequest'
+      responses:
+        '200':
+          description: The updated webhook.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponse'
+    delete:
+      operationId: deleteWebhook
+      tags:
+        - Webhooks
+      summary: Delete a webhook
+      responses:
+        '200':
+          description: Acknowledgement.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Acknowledgement'
+  /webhooks/{webhookId}/triggers:
+    parameters:
+      - name: webhookId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: listTriggers
+      tags:
+        - Webhooks
+      summary: List triggers for a webhook
+      responses:
+        '200':
+          description: A list of triggers.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: string
+    post:
+      operationId: addTriggers
+      tags:
+        - Webhooks
+      summary: Add triggers to a webhook
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TriggersRequest'
+      responses:
+        '200':
+          description: Acknowledgement.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Acknowledgement'
+    delete:
+      operationId: removeTriggers
+      tags:
+        - Webhooks
+      summary: Remove triggers from a webhook
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TriggersRequest'
+      responses:
+        '200':
+          description: Acknowledgement.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Acknowledgement'
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: apikey
+      description: >-
+        Rest API Key with fullAccess scope from the CometChat dashboard. The
+        App ID and region are encoded in the host, not in a header.
+  parameters:
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+    PerPage:
+      name: perPage
+      in: query
+      schema:
+        type: integer
+        default: 25
+        maximum: 100
+    Uid:
+      name: uid
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Unique user identifier.
+    Guid:
+      name: guid
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Unique group identifier (lowercased automatically).
+    MessageId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int64
+      description: Numeric message identifier.
+  schemas:
+    Acknowledgement:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            success:
+              type: boolean
+            message:
+              type: string
+    Pagination:
+      type: object
+      properties:
+        total:
+          type: integer
+        count:
+          type: integer
+        per_page:
+          type: integer
+        current_page:
+          type: integer
+        total_pages:
+          type: integer
+    User:
+      type: object
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+        avatar:
+          type: string
+        link:
+          type: string
+        role:
+          type: string
+        metadata:
+          type: object
+        status:
+          type: string
+          enum: [online, offline]
+        statusMessage:
+          type: string
+        hasBlockedMe:
+          type: boolean
+        blockedByMe:
+          type: boolean
+        createdAt:
+          type: integer
+          format: int64
+        updatedAt:
+          type: integer
+          format: int64
+        lastActiveAt:
+          type: integer
+          format: int64
+        deactivatedAt:
+          type: integer
+          format: int64
+    CreateUserRequest:
+      type: object
+      required:
+        - uid
+        - name
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+        avatar:
+          type: string
+        link:
+          type: string
+        role:
+          type: string
+        metadata:
+          type: object
+        withAuthToken:
+          type: boolean
+          description: Also generate an auth token for the new user.
+    UpdateUserRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        avatar:
+          type: string
+        link:
+          type: string
+        role:
+          type: string
+        metadata:
+          type: object
+    UserResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/User'
+    UserList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        meta:
+          type: object
+          properties:
+            pagination:
+              $ref: '#/components/schemas/Pagination'
+    AuthToken:
+      type: object
+      properties:
+        uid:
+          type: string
+        authToken:
+          type: string
+        createdAt:
+          type: integer
+          format: int64
+    AuthTokenResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/AuthToken'
+    AuthTokenList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuthToken'
+    Group:
+      type: object
+      properties:
+        guid:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum: [public, private, password]
+        password:
+          type: string
+        icon:
+          type: string
+        description:
+          type: string
+        owner:
+          type: string
+        metadata:
+          type: object
+        membersCount:
+          type: integer
+        tags:
+          type: array
+          items:
+            type: string
+        createdAt:
+          type: integer
+          format: int64
+        updatedAt:
+          type: integer
+          format: int64
+    CreateGroupRequest:
+      type: object
+      required:
+        - guid
+        - name
+        - type
+      properties:
+        guid:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum: [public, private, password]
+        password:
+          type: string
+          description: Required when type is password.
+        icon:
+          type: string
+        description:
+          type: string
+        owner:
+          type: string
+        metadata:
+          type: object
+        tags:
+          type: array
+          items:
+            type: string
+    UpdateGroupRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        icon:
+          type: string
+        description:
+          type: string
+        owner:
+          type: string
+        metadata:
+          type: object
+        tags:
+          type: array
+          items:
+            type: string
+    GroupResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Group'
+    GroupList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Group'
+        meta:
+          type: object
+          properties:
+            pagination:
+              $ref: '#/components/schemas/Pagination'
+    GroupMember:
+      type: object
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+        scope:
+          type: string
+          enum: [admin, moderator, participant]
+        joinedAt:
+          type: integer
+          format: int64
+    GroupMemberList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupMember'
+        meta:
+          type: object
+          properties:
+            pagination:
+              $ref: '#/components/schemas/Pagination'
+    AddMembersRequest:
+      type: object
+      properties:
+        participants:
+          type: array
+          items:
+            type: string
+        moderators:
+          type: array
+          items:
+            type: string
+        admins:
+          type: array
+          items:
+            type: string
+        usersToBan:
+          type: array
+          items:
+            type: string
+    AddMembersResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          additionalProperties:
+            type: string
+    ChangeScopeRequest:
+      type: object
+      required:
+        - uid
+        - scope
+      properties:
+        uid:
+          type: string
+        scope:
+          type: string
+          enum: [admin, moderator, participant]
+    Message:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        conversationId:
+          type: string
+        sender:
+          type: string
+        receiver:
+          type: string
+        receiverType:
+          type: string
+          enum: [user, group]
+        category:
+          type: string
+          enum: [message, action, call, custom]
+        type:
+          type: string
+        data:
+          type: object
+        sentAt:
+          type: integer
+          format: int64
+        updatedAt:
+          type: integer
+          format: int64
+        deletedAt:
+          type: integer
+          format: int64
+    SendMessageRequest:
+      type: object
+      required:
+        - receiver
+        - receiverType
+        - category
+        - type
+      properties:
+        receiver:
+          type: string
+        receiverType:
+          type: string
+          enum: [user, group]
+        category:
+          type: string
+          enum: [message, custom]
+        type:
+          type: string
+          description: e.g. text, image, file, video, audio, or a custom type.
+        data:
+          type: object
+          properties:
+            text:
+              type: string
+            metadata:
+              type: object
+        onBehalfOf:
+          type: string
+          description: Send the message as another user (UID).
+        parentMessageId:
+          type: integer
+          format: int64
+          description: Set to reply in a thread.
+        tags:
+          type: array
+          items:
+            type: string
+    UpdateMessageRequest:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            text:
+              type: string
+            metadata:
+              type: object
+        tags:
+          type: array
+          items:
+            type: string
+    MessageResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Message'
+    MessageList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+        meta:
+          type: object
+          properties:
+            pagination:
+              $ref: '#/components/schemas/Pagination'
+    Conversation:
+      type: object
+      properties:
+        conversationId:
+          type: string
+        conversationType:
+          type: string
+          enum: [user, group]
+        lastMessage:
+          $ref: '#/components/schemas/Message'
+        unreadMessageCount:
+          type: integer
+        updatedAt:
+          type: integer
+          format: int64
+    ConversationResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Conversation'
+    ConversationList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Conversation'
+        meta:
+          type: object
+          properties:
+            pagination:
+              $ref: '#/components/schemas/Pagination'
+    Role:
+      type: object
+      properties:
+        role:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        permissions:
+          type: array
+          items:
+            type: string
+    CreateRoleRequest:
+      type: object
+      required:
+        - role
+        - name
+      properties:
+        role:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        permissions:
+          type: array
+          items:
+            type: string
+    RoleResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Role'
+    RoleList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Role'
+    FriendsRequest:
+      type: object
+      required:
+        - friends
+      properties:
+        friends:
+          type: array
+          items:
+            type: string
+          description: List of UIDs.
+    BlockUsersRequest:
+      type: object
+      required:
+        - blockedUids
+      properties:
+        blockedUids:
+          type: array
+          items:
+            type: string
+    BanUsersRequest:
+      type: object
+      required:
+        - uids
+      properties:
+        uids:
+          type: array
+          items:
+            type: string
+    Webhook:
+      type: object
+      properties:
+        id:
+          type: string
+        url:
+          type: string
+          format: uri
+        method:
+          type: string
+          enum: [POST, GET]
+        triggers:
+          type: array
+          items:
+            type: string
+        authentication:
+          type: object
+          properties:
+            type:
+              type: string
+              enum: [basic, none]
+            username:
+              type: string
+            password:
+              type: string
+        status:
+          type: string
+          enum: [active, inactive]
+    CreateWebhookRequest:
+      type: object
+      required:
+        - url
+        - triggers
+      properties:
+        url:
+          type: string
+          format: uri
+        method:
+          type: string
+          enum: [POST, GET]
+        triggers:
+          type: array
+          items:
+            type: string
+            description: e.g. message_sent, user_created, group_member_added.
+        authentication:
+          type: object
+          properties:
+            type:
+              type: string
+              enum: [basic, none]
+            username:
+              type: string
+            password:
+              type: string
+    WebhookResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Webhook'
+    WebhookList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Webhook'
+    TriggersRequest:
+      type: object
+      required:
+        - triggers
+      properties:
+        triggers:
+          type: array
+          items:
+            type: string

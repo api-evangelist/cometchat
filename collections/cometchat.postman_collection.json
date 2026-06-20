@@ -1,0 +1,277 @@
+{
+  "info": {
+    "name": "CometChat REST Management API",
+    "description": "Server-side REST Management API (v3) for CometChat. Host is derived from your App ID and region: https://{{appId}}.api-{{region}}.cometchat.io/v3. Authenticate with a Rest API Key (fullAccess) in the apikey header.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://{{appId}}.api-{{region}}.cometchat.io/v3" },
+    { "key": "appId", "value": "APP_ID" },
+    { "key": "region", "value": "us" },
+    { "key": "apikey", "value": "YOUR_REST_API_KEY" }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      { "key": "key", "value": "apikey" },
+      { "key": "value", "value": "{{apikey}}" },
+      { "key": "in", "value": "header" }
+    ]
+  },
+  "item": [
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "List Users",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "apikey", "value": "{{apikey}}" }],
+            "url": { "raw": "{{baseUrl}}/users?page=1&perPage=25", "host": ["{{baseUrl}}"], "path": ["users"], "query": [{ "key": "page", "value": "1" }, { "key": "perPage", "value": "25" }] }
+          }
+        },
+        {
+          "name": "Create User",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "apikey", "value": "{{apikey}}" }, { "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"uid\": \"cometchat-uid-1\",\n  \"name\": \"Andrew Joseph\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/users", "host": ["{{baseUrl}}"], "path": ["users"] }
+          }
+        },
+        {
+          "name": "Get User",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "apikey", "value": "{{apikey}}" }],
+            "url": { "raw": "{{baseUrl}}/users/:uid", "host": ["{{baseUrl}}"], "path": ["users", ":uid"], "variable": [{ "key": "uid", "value": "cometchat-uid-1" }] }
+          }
+        },
+        {
+          "name": "Update User",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "apikey", "value": "{{apikey}}" }, { "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Andrew J.\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/users/:uid", "host": ["{{baseUrl}}"], "path": ["users", ":uid"], "variable": [{ "key": "uid", "value": "cometchat-uid-1" }] }
+          }
+        },
+        {
+          "name": "Delete User",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "apikey", "value": "{{apikey}}" }, { "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"permanent\": true\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/users/:uid", "host": ["{{baseUrl}}"], "path": ["users", ":uid"], "variable": [{ "key": "uid", "value": "cometchat-uid-1" }] }
+          }
+        },
+        {
+          "name": "Create Auth Token",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "apikey", "value": "{{apikey}}" }, { "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"force\": false\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/users/:uid/auth_tokens", "host": ["{{baseUrl}}"], "path": ["users", ":uid", "auth_tokens"], "variable": [{ "key": "uid", "value": "cometchat-uid-1" }] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Groups",
+      "item": [
+        {
+          "name": "List Groups",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "apikey", "value": "{{apikey}}" }],
+            "url": { "raw": "{{baseUrl}}/groups", "host": ["{{baseUrl}}"], "path": ["groups"] }
+          }
+        },
+        {
+          "name": "Create Group",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "apikey", "value": "{{apikey}}" }, { "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"guid\": \"cometchat-guid-1\",\n  \"name\": \"Hello Group!\",\n  \"type\": \"public\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/groups", "host": ["{{baseUrl}}"], "path": ["groups"] }
+          }
+        },
+        {
+          "name": "Get Group",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "apikey", "value": "{{apikey}}" }],
+            "url": { "raw": "{{baseUrl}}/groups/:guid", "host": ["{{baseUrl}}"], "path": ["groups", ":guid"], "variable": [{ "key": "guid", "value": "cometchat-guid-1" }] }
+          }
+        },
+        {
+          "name": "Delete Group",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "apikey", "value": "{{apikey}}" }],
+            "url": { "raw": "{{baseUrl}}/groups/:guid", "host": ["{{baseUrl}}"], "path": ["groups", ":guid"], "variable": [{ "key": "guid", "value": "cometchat-guid-1" }] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Group Members",
+      "item": [
+        {
+          "name": "List Group Members",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "apikey", "value": "{{apikey}}" }],
+            "url": { "raw": "{{baseUrl}}/groups/:guid/members", "host": ["{{baseUrl}}"], "path": ["groups", ":guid", "members"], "variable": [{ "key": "guid", "value": "cometchat-guid-1" }] }
+          }
+        },
+        {
+          "name": "Add Members",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "apikey", "value": "{{apikey}}" }, { "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"participants\": [\"cometchat-uid-1\"],\n  \"moderators\": [],\n  \"admins\": []\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/groups/:guid/members", "host": ["{{baseUrl}}"], "path": ["groups", ":guid", "members"], "variable": [{ "key": "guid", "value": "cometchat-guid-1" }] }
+          }
+        },
+        {
+          "name": "Change Member Scope",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "apikey", "value": "{{apikey}}" }, { "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"uid\": \"cometchat-uid-1\",\n  \"scope\": \"moderator\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/groups/:guid/members", "host": ["{{baseUrl}}"], "path": ["groups", ":guid", "members"], "variable": [{ "key": "guid", "value": "cometchat-guid-1" }] }
+          }
+        },
+        {
+          "name": "Kick Member",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "apikey", "value": "{{apikey}}" }],
+            "url": { "raw": "{{baseUrl}}/groups/:guid/members/:uid", "host": ["{{baseUrl}}"], "path": ["groups", ":guid", "members", ":uid"], "variable": [{ "key": "guid", "value": "cometchat-guid-1" }, { "key": "uid", "value": "cometchat-uid-1" }] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Messages",
+      "item": [
+        {
+          "name": "List Messages",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "apikey", "value": "{{apikey}}" }],
+            "url": { "raw": "{{baseUrl}}/messages?perPage=25", "host": ["{{baseUrl}}"], "path": ["messages"], "query": [{ "key": "perPage", "value": "25" }] }
+          }
+        },
+        {
+          "name": "Send Message",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "apikey", "value": "{{apikey}}" }, { "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"receiver\": \"cometchat-uid-2\",\n  \"receiverType\": \"user\",\n  \"category\": \"message\",\n  \"type\": \"text\",\n  \"data\": { \"text\": \"Hello world!\" },\n  \"onBehalfOf\": \"cometchat-uid-1\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/messages", "host": ["{{baseUrl}}"], "path": ["messages"] }
+          }
+        },
+        {
+          "name": "Get Message",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "apikey", "value": "{{apikey}}" }],
+            "url": { "raw": "{{baseUrl}}/messages/:id", "host": ["{{baseUrl}}"], "path": ["messages", ":id"], "variable": [{ "key": "id", "value": "1" }] }
+          }
+        },
+        {
+          "name": "Delete Message",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "apikey", "value": "{{apikey}}" }],
+            "url": { "raw": "{{baseUrl}}/messages/:id", "host": ["{{baseUrl}}"], "path": ["messages", ":id"], "variable": [{ "key": "id", "value": "1" }] }
+          }
+        },
+        {
+          "name": "Add Reaction",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "apikey", "value": "{{apikey}}" }],
+            "url": { "raw": "{{baseUrl}}/messages/:id/reactions/:reaction", "host": ["{{baseUrl}}"], "path": ["messages", ":id", "reactions", ":reaction"], "variable": [{ "key": "id", "value": "1" }, { "key": "reaction", "value": "U+1F44D" }] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Conversations",
+      "item": [
+        {
+          "name": "List Conversations",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "apikey", "value": "{{apikey}}" }],
+            "url": { "raw": "{{baseUrl}}/conversations?conversationType=user", "host": ["{{baseUrl}}"], "path": ["conversations"], "query": [{ "key": "conversationType", "value": "user" }] }
+          }
+        },
+        {
+          "name": "Get Conversation",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "apikey", "value": "{{apikey}}" }],
+            "url": { "raw": "{{baseUrl}}/conversations/:conversationId?conversationType=user", "host": ["{{baseUrl}}"], "path": ["conversations", ":conversationId"], "query": [{ "key": "conversationType", "value": "user" }], "variable": [{ "key": "conversationId", "value": "cometchat-uid-1_user_cometchat-uid-2" }] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Roles",
+      "item": [
+        {
+          "name": "List Roles",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "apikey", "value": "{{apikey}}" }],
+            "url": { "raw": "{{baseUrl}}/roles", "host": ["{{baseUrl}}"], "path": ["roles"] }
+          }
+        },
+        {
+          "name": "Create Role",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "apikey", "value": "{{apikey}}" }, { "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"role\": \"vip\",\n  \"name\": \"VIP\",\n  \"description\": \"Premium members\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/roles", "host": ["{{baseUrl}}"], "path": ["roles"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Webhooks",
+      "item": [
+        {
+          "name": "List Webhooks",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "apikey", "value": "{{apikey}}" }],
+            "url": { "raw": "{{baseUrl}}/webhooks", "host": ["{{baseUrl}}"], "path": ["webhooks"] }
+          }
+        },
+        {
+          "name": "Create Webhook",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "apikey", "value": "{{apikey}}" }, { "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"url\": \"https://example.com/cometchat-hook\",\n  \"method\": \"POST\",\n  \"triggers\": [\"message_sent\", \"user_created\"]\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/webhooks", "host": ["{{baseUrl}}"], "path": ["webhooks"] }
+          }
+        },
+        {
+          "name": "Add Triggers",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "apikey", "value": "{{apikey}}" }, { "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"triggers\": [\"group_member_added\"]\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/webhooks/:webhookId/triggers", "host": ["{{baseUrl}}"], "path": ["webhooks", ":webhookId", "triggers"], "variable": [{ "key": "webhookId", "value": "webhook-1" }] }
+          }
+        }
+      ]
+    }
+  ]
+}
