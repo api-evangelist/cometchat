@@ -183,6 +183,10 @@ apis:
     maintained by the SDK via connect()/disconnect(); CometChat does not publish
     a raw wss endpoint or message protocol.
 common:
+- type: DomainSecurity
+  url: security/cometchat-domain-security.yml
+- type: Authentication
+  url: authentication/cometchat-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/cometchat
 - type: LinkedIn
@@ -197,6 +201,8 @@ common:
   url: rate-limits/cometchat-rate-limits.yml
 - type: FinOps
   url: finops/cometchat-finops.yml
+- url: https://www.cometchat.com/blog
+  type: Blog
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

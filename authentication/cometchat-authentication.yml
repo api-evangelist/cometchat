@@ -1,0 +1,17 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/cometchat-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: apiKeyAuth
+  type: apiKey
+  in: header
+  parameter: apikey
+  description: Rest API Key with fullAccess scope from the CometChat dashboard. The App ID and
+    region are encoded in the host, not in a header.
+  sources:
+  - openapi/cometchat-openapi.yml
