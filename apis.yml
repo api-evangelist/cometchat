@@ -183,6 +183,8 @@ apis:
     maintained by the SDK via connect()/disconnect(); CometChat does not publish
     a raw wss endpoint or message protocol.
 common:
+- type: AgenticAccess
+  url: agentic-access/cometchat-agentic-access.yml
 - type: DomainSecurity
   url: security/cometchat-domain-security.yml
 - type: Authentication
