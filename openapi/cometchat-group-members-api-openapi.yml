@@ -1,0 +1,238 @@
+openapi: 3.0.1
+info:
+  title: CometChat REST Management Auth Tokens Group Members API
+  description: Server-side REST Management API (v3) for CometChat in-app messaging. Manages users, authentication tokens, groups, group members, messages, conversations, reactions, roles, friends, blocked and banned users, and webhooks for a CometChat app. The API is scoped to a single app and region; the host is derived from your App ID and the region your app is provisioned in (us, eu, in). All requests authenticate with a Rest API Key (fullAccess scope) passed in the `apikey` header. Realtime delivery to end users is handled separately by the CometChat client SDKs over a managed WebSocket layer and is not part of this REST surface.
+  termsOfService: https://www.cometchat.com/terms-and-conditions
+  contact:
+    name: CometChat Support
+    url: https://www.cometchat.com/contact-sales
+  version: '3.0'
+servers:
+- url: https://{appId}.api-{region}.cometchat.io/v3
+  description: Per-app, per-region CometChat REST Management API host
+  variables:
+    appId:
+      default: APP_ID
+      description: Your CometChat App ID from the dashboard
+    region:
+      default: us
+      enum:
+      - us
+      - eu
+      - in
+      description: The region your CometChat app is provisioned in
+security:
+- apiKeyAuth: []
+tags:
+- name: Group Members
+  description: Add, list, kick, and scope group members
+paths:
+  /groups/{guid}/members:
+    parameters:
+    - $ref: '#/components/parameters/Guid'
+    get:
+      operationId: listGroupMembers
+      tags:
+      - Group Members
+      summary: List group members
+      parameters:
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PerPage'
+      - name: scopes
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - admin
+            - moderator
+            - participant
+        style: form
+        explode: true
+      responses:
+        '200':
+          description: A list of group members.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupMemberList'
+    post:
+      operationId: addGroupMembers
+      tags:
+      - Group Members
+      summary: Add members to a group
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddMembersRequest'
+      responses:
+        '200':
+          description: Result of the add-members operation per UID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddMembersResponse'
+    put:
+      operationId: changeMemberScope
+      tags:
+      - Group Members
+      summary: Change a member's scope
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangeScopeRequest'
+      responses:
+        '200':
+          description: Acknowledgement.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Acknowledgement'
+  /groups/{guid}/members/{uid}:
+    parameters:
+    - $ref: '#/components/parameters/Guid'
+    - $ref: '#/components/parameters/Uid'
+    delete:
+      operationId: kickGroupMember
+      tags:
+      - Group Members
+      summary: Kick a member from a group
+      responses:
+        '200':
+          description: Acknowledgement.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Acknowledgement'
+components:
+  schemas:
+    AddMembersResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          additionalProperties:
+            type: string
+    Pagination:
+      type: object
+      properties:
+        total:
+          type: integer
+        count:
+          type: integer
+        per_page:
+          type: integer
+        current_page:
+          type: integer
+        total_pages:
+          type: integer
+    GroupMemberList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupMember'
+        meta:
+          type: object
+          properties:
+            pagination:
+              $ref: '#/components/schemas/Pagination'
+    GroupMember:
+      type: object
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+        scope:
+          type: string
+          enum:
+          - admin
+          - moderator
+          - participant
+        joinedAt:
+          type: integer
+          format: int64
+    Acknowledgement:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            success:
+              type: boolean
+            message:
+              type: string
+    AddMembersRequest:
+      type: object
+      properties:
+        participants:
+          type: array
+          items:
+            type: string
+        moderators:
+          type: array
+          items:
+            type: string
+        admins:
+          type: array
+          items:
+            type: string
+        usersToBan:
+          type: array
+          items:
+            type: string
+    ChangeScopeRequest:
+      type: object
+      required:
+      - uid
+      - scope
+      properties:
+        uid:
+          type: string
+        scope:
+          type: string
+          enum:
+          - admin
+          - moderator
+          - participant
+  parameters:
+    Guid:
+      name: guid
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Unique group identifier (lowercased automatically).
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+    PerPage:
+      name: perPage
+      in: query
+      schema:
+        type: integer
+        default: 25
+        maximum: 100
+    Uid:
+      name: uid
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Unique user identifier.
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: apikey
+      description: Rest API Key with fullAccess scope from the CometChat dashboard. The App ID and region are encoded in the host, not in a header.

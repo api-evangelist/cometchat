@@ -1,0 +1,89 @@
+openapi: 3.0.1
+info:
+  title: CometChat REST Management Auth Tokens Reactions API
+  description: Server-side REST Management API (v3) for CometChat in-app messaging. Manages users, authentication tokens, groups, group members, messages, conversations, reactions, roles, friends, blocked and banned users, and webhooks for a CometChat app. The API is scoped to a single app and region; the host is derived from your App ID and the region your app is provisioned in (us, eu, in). All requests authenticate with a Rest API Key (fullAccess scope) passed in the `apikey` header. Realtime delivery to end users is handled separately by the CometChat client SDKs over a managed WebSocket layer and is not part of this REST surface.
+  termsOfService: https://www.cometchat.com/terms-and-conditions
+  contact:
+    name: CometChat Support
+    url: https://www.cometchat.com/contact-sales
+  version: '3.0'
+servers:
+- url: https://{appId}.api-{region}.cometchat.io/v3
+  description: Per-app, per-region CometChat REST Management API host
+  variables:
+    appId:
+      default: APP_ID
+      description: Your CometChat App ID from the dashboard
+    region:
+      default: us
+      enum:
+      - us
+      - eu
+      - in
+      description: The region your CometChat app is provisioned in
+security:
+- apiKeyAuth: []
+tags:
+- name: Reactions
+  description: Add and remove message reactions
+paths:
+  /messages/{id}/reactions/{reaction}:
+    parameters:
+    - $ref: '#/components/parameters/MessageId'
+    - name: reaction
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The emoji unicode for the reaction.
+    post:
+      operationId: addReaction
+      tags:
+      - Reactions
+      summary: Add a reaction to a message
+      responses:
+        '200':
+          description: The updated reaction set.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Acknowledgement'
+    delete:
+      operationId: removeReaction
+      tags:
+      - Reactions
+      summary: Remove a reaction from a message
+      responses:
+        '200':
+          description: Acknowledgement.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Acknowledgement'
+components:
+  schemas:
+    Acknowledgement:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            success:
+              type: boolean
+            message:
+              type: string
+  parameters:
+    MessageId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int64
+      description: Numeric message identifier.
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: apikey
+      description: Rest API Key with fullAccess scope from the CometChat dashboard. The App ID and region are encoded in the host, not in a header.

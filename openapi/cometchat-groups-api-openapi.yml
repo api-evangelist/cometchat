@@ -1,0 +1,265 @@
+openapi: 3.0.1
+info:
+  title: CometChat REST Management Auth Tokens Groups API
+  description: Server-side REST Management API (v3) for CometChat in-app messaging. Manages users, authentication tokens, groups, group members, messages, conversations, reactions, roles, friends, blocked and banned users, and webhooks for a CometChat app. The API is scoped to a single app and region; the host is derived from your App ID and the region your app is provisioned in (us, eu, in). All requests authenticate with a Rest API Key (fullAccess scope) passed in the `apikey` header. Realtime delivery to end users is handled separately by the CometChat client SDKs over a managed WebSocket layer and is not part of this REST surface.
+  termsOfService: https://www.cometchat.com/terms-and-conditions
+  contact:
+    name: CometChat Support
+    url: https://www.cometchat.com/contact-sales
+  version: '3.0'
+servers:
+- url: https://{appId}.api-{region}.cometchat.io/v3
+  description: Per-app, per-region CometChat REST Management API host
+  variables:
+    appId:
+      default: APP_ID
+      description: Your CometChat App ID from the dashboard
+    region:
+      default: us
+      enum:
+      - us
+      - eu
+      - in
+      description: The region your CometChat app is provisioned in
+security:
+- apiKeyAuth: []
+tags:
+- name: Groups
+  description: Create and manage groups
+paths:
+  /groups:
+    get:
+      operationId: listGroups
+      tags:
+      - Groups
+      summary: List groups
+      parameters:
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PerPage'
+      - name: searchKey
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A paginated list of groups.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupList'
+    post:
+      operationId: createGroup
+      tags:
+      - Groups
+      summary: Create a group
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateGroupRequest'
+      responses:
+        '200':
+          description: The created group.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupResponse'
+  /groups/{guid}:
+    parameters:
+    - $ref: '#/components/parameters/Guid'
+    get:
+      operationId: getGroup
+      tags:
+      - Groups
+      summary: Get a group
+      responses:
+        '200':
+          description: The requested group.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupResponse'
+    put:
+      operationId: updateGroup
+      tags:
+      - Groups
+      summary: Update a group
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateGroupRequest'
+      responses:
+        '200':
+          description: The updated group.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupResponse'
+    delete:
+      operationId: deleteGroup
+      tags:
+      - Groups
+      summary: Delete a group
+      responses:
+        '200':
+          description: Acknowledgement.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Acknowledgement'
+components:
+  schemas:
+    GroupList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Group'
+        meta:
+          type: object
+          properties:
+            pagination:
+              $ref: '#/components/schemas/Pagination'
+    UpdateGroupRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        icon:
+          type: string
+        description:
+          type: string
+        owner:
+          type: string
+        metadata:
+          type: object
+        tags:
+          type: array
+          items:
+            type: string
+    Pagination:
+      type: object
+      properties:
+        total:
+          type: integer
+        count:
+          type: integer
+        per_page:
+          type: integer
+        current_page:
+          type: integer
+        total_pages:
+          type: integer
+    Acknowledgement:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            success:
+              type: boolean
+            message:
+              type: string
+    Group:
+      type: object
+      properties:
+        guid:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+          - public
+          - private
+          - password
+        password:
+          type: string
+        icon:
+          type: string
+        description:
+          type: string
+        owner:
+          type: string
+        metadata:
+          type: object
+        membersCount:
+          type: integer
+        tags:
+          type: array
+          items:
+            type: string
+        createdAt:
+          type: integer
+          format: int64
+        updatedAt:
+          type: integer
+          format: int64
+    GroupResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Group'
+    CreateGroupRequest:
+      type: object
+      required:
+      - guid
+      - name
+      - type
+      properties:
+        guid:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+          - public
+          - private
+          - password
+        password:
+          type: string
+          description: Required when type is password.
+        icon:
+          type: string
+        description:
+          type: string
+        owner:
+          type: string
+        metadata:
+          type: object
+        tags:
+          type: array
+          items:
+            type: string
+  parameters:
+    Guid:
+      name: guid
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Unique group identifier (lowercased automatically).
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+    PerPage:
+      name: perPage
+      in: query
+      schema:
+        type: integer
+        default: 25
+        maximum: 100
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: apikey
+      description: Rest API Key with fullAccess scope from the CometChat dashboard. The App ID and region are encoded in the host, not in a header.

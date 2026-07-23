@@ -1,0 +1,315 @@
+openapi: 3.0.1
+info:
+  title: CometChat REST Management Auth Tokens Messages API
+  description: Server-side REST Management API (v3) for CometChat in-app messaging. Manages users, authentication tokens, groups, group members, messages, conversations, reactions, roles, friends, blocked and banned users, and webhooks for a CometChat app. The API is scoped to a single app and region; the host is derived from your App ID and the region your app is provisioned in (us, eu, in). All requests authenticate with a Rest API Key (fullAccess scope) passed in the `apikey` header. Realtime delivery to end users is handled separately by the CometChat client SDKs over a managed WebSocket layer and is not part of this REST surface.
+  termsOfService: https://www.cometchat.com/terms-and-conditions
+  contact:
+    name: CometChat Support
+    url: https://www.cometchat.com/contact-sales
+  version: '3.0'
+servers:
+- url: https://{appId}.api-{region}.cometchat.io/v3
+  description: Per-app, per-region CometChat REST Management API host
+  variables:
+    appId:
+      default: APP_ID
+      description: Your CometChat App ID from the dashboard
+    region:
+      default: us
+      enum:
+      - us
+      - eu
+      - in
+      description: The region your CometChat app is provisioned in
+security:
+- apiKeyAuth: []
+tags:
+- name: Messages
+  description: Send, list, edit, and delete messages
+paths:
+  /messages:
+    get:
+      operationId: listMessages
+      tags:
+      - Messages
+      summary: List messages
+      parameters:
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PerPage'
+      - name: searchKey
+        in: query
+        schema:
+          type: string
+      - name: receiverType
+        in: query
+        schema:
+          type: string
+          enum:
+          - user
+          - group
+      - name: category
+        in: query
+        schema:
+          type: string
+          enum:
+          - message
+          - action
+          - call
+          - custom
+      - name: type
+        in: query
+        schema:
+          type: string
+      - name: sentAt
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - name: affix
+        in: query
+        schema:
+          type: string
+          enum:
+          - append
+          - prepend
+      responses:
+        '200':
+          description: A list of messages.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageList'
+    post:
+      operationId: sendMessage
+      tags:
+      - Messages
+      summary: Send a message
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendMessageRequest'
+      responses:
+        '200':
+          description: The sent message.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+  /messages/{id}:
+    parameters:
+    - $ref: '#/components/parameters/MessageId'
+    get:
+      operationId: getMessage
+      tags:
+      - Messages
+      summary: Get a message
+      responses:
+        '200':
+          description: The requested message.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+    put:
+      operationId: updateMessage
+      tags:
+      - Messages
+      summary: Update a message
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMessageRequest'
+      responses:
+        '200':
+          description: The updated message.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+    delete:
+      operationId: deleteMessage
+      tags:
+      - Messages
+      summary: Delete a message
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                permanent:
+                  type: boolean
+      responses:
+        '200':
+          description: Acknowledgement.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Acknowledgement'
+components:
+  schemas:
+    MessageList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+        meta:
+          type: object
+          properties:
+            pagination:
+              $ref: '#/components/schemas/Pagination'
+    UpdateMessageRequest:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            text:
+              type: string
+            metadata:
+              type: object
+        tags:
+          type: array
+          items:
+            type: string
+    Pagination:
+      type: object
+      properties:
+        total:
+          type: integer
+        count:
+          type: integer
+        per_page:
+          type: integer
+        current_page:
+          type: integer
+        total_pages:
+          type: integer
+    Acknowledgement:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            success:
+              type: boolean
+            message:
+              type: string
+    MessageResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Message'
+    SendMessageRequest:
+      type: object
+      required:
+      - receiver
+      - receiverType
+      - category
+      - type
+      properties:
+        receiver:
+          type: string
+        receiverType:
+          type: string
+          enum:
+          - user
+          - group
+        category:
+          type: string
+          enum:
+          - message
+          - custom
+        type:
+          type: string
+          description: e.g. text, image, file, video, audio, or a custom type.
+        data:
+          type: object
+          properties:
+            text:
+              type: string
+            metadata:
+              type: object
+        onBehalfOf:
+          type: string
+          description: Send the message as another user (UID).
+        parentMessageId:
+          type: integer
+          format: int64
+          description: Set to reply in a thread.
+        tags:
+          type: array
+          items:
+            type: string
+    Message:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        conversationId:
+          type: string
+        sender:
+          type: string
+        receiver:
+          type: string
+        receiverType:
+          type: string
+          enum:
+          - user
+          - group
+        category:
+          type: string
+          enum:
+          - message
+          - action
+          - call
+          - custom
+        type:
+          type: string
+        data:
+          type: object
+        sentAt:
+          type: integer
+          format: int64
+        updatedAt:
+          type: integer
+          format: int64
+        deletedAt:
+          type: integer
+          format: int64
+  parameters:
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+    MessageId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int64
+      description: Numeric message identifier.
+    PerPage:
+      name: perPage
+      in: query
+      schema:
+        type: integer
+        default: 25
+        maximum: 100
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: apikey
+      description: Rest API Key with fullAccess scope from the CometChat dashboard. The App ID and region are encoded in the host, not in a header.
