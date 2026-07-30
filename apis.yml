@@ -7,7 +7,20 @@ description: CometChat is an in-app messaging platform offering chat, voice, and
   tokens, groups, group members, messages, conversations, reactions, roles, and
   webhooks for an app, while client SDKs and a managed realtime WebSocket layer
   deliver one-to-one and group conversations, presence, and calling.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/cometchat.png
 tags:
 - Chat
 - Messaging
@@ -19,147 +32,6 @@ created: '2026-06-20'
 modified: '2026-06-20'
 specificationVersion: '0.19'
 apis:
-- aid: cometchat:cometchat-users-api
-  name: CometChat Users API
-  tags:
-  - Users
-  - Identity
-  - Auth Tokens
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.cometchat.com/docs/rest-api/users
-  baseURL: https://{appId}.api-{region}.cometchat.io/v3
-  properties:
-  - url: https://www.cometchat.com/docs/rest-api/users
-    type: Documentation
-  - url: https://www.cometchat.com/docs/rest-api/chat-apis
-    type: APIReference
-  - url: openapi/cometchat-openapi.yml
-    type: OpenAPI
-  - url: collections/cometchat.postman_collection.json
-    type: Postman
-  description: Create, list, retrieve, update, delete, deactivate, and reactivate
-    users, plus issue and manage per-user authentication tokens used by client SDKs
-    to log a user into an app.
-- aid: cometchat:cometchat-groups-api
-  name: CometChat Groups & Members API
-  tags:
-  - Groups
-  - Members
-  - Membership
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.cometchat.com/docs/rest-api/groups
-  baseURL: https://{appId}.api-{region}.cometchat.io/v3
-  properties:
-  - url: https://www.cometchat.com/docs/rest-api/groups
-    type: Documentation
-  - url: https://www.cometchat.com/docs/rest-api/group-members
-    type: APIReference
-  - url: openapi/cometchat-openapi.yml
-    type: OpenAPI
-  - url: collections/cometchat.postman_collection.json
-    type: Postman
-  description: Create, list, update, and delete public, private, and password groups,
-    and add, list, kick, and change the scope of group members (participant, moderator,
-    admin).
-- aid: cometchat:cometchat-messages-api
-  name: CometChat Messages API
-  tags:
-  - Messages
-  - Threads
-  - Reactions
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.cometchat.com/docs/rest-api/messages
-  baseURL: https://{appId}.api-{region}.cometchat.io/v3
-  properties:
-  - url: https://www.cometchat.com/docs/rest-api/messages
-    type: Documentation
-  - url: https://www.cometchat.com/docs/rest-api/messages/list-messages
-    type: APIReference
-  - url: openapi/cometchat-openapi.yml
-    type: OpenAPI
-  - url: collections/cometchat.postman_collection.json
-    type: Postman
-  description: Send, list, retrieve, update, and delete one-to-one and group messages,
-    send threaded and bot messages, and add, remove, and list message reactions.
-- aid: cometchat:cometchat-conversations-api
-  name: CometChat Conversations API
-  tags:
-  - Conversations
-  - Read Receipts
-  - Unread
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.cometchat.com/docs/rest-api/conversations
-  baseURL: https://{appId}.api-{region}.cometchat.io/v3
-  properties:
-  - url: https://www.cometchat.com/docs/rest-api/conversations
-    type: Documentation
-  - url: https://www.cometchat.com/docs/rest-api/conversations/list-conversations
-    type: APIReference
-  - url: openapi/cometchat-openapi.yml
-    type: OpenAPI
-  - url: collections/cometchat.postman_collection.json
-    type: Postman
-  description: List and retrieve user and group conversations, update conversation
-    metadata, and mark conversations as read, delivered, or unread for managing
-    inbox state server-side.
-- aid: cometchat:cometchat-roles-api
-  name: CometChat Roles API
-  tags:
-  - Roles
-  - Permissions
-  - Access Control
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.cometchat.com/docs/rest-api/roles
-  baseURL: https://{appId}.api-{region}.cometchat.io/v3
-  properties:
-  - url: https://www.cometchat.com/docs/rest-api/roles
-    type: Documentation
-  - url: openapi/cometchat-openapi.yml
-    type: OpenAPI
-  - url: collections/cometchat.postman_collection.json
-    type: Postman
-  description: Create, list, retrieve, update, and delete custom roles that govern
-    what users and group members can do within an app.
-- aid: cometchat:cometchat-relationships-api
-  name: CometChat Relationships API
-  tags:
-  - Friends
-  - Blocked Users
-  - Banned Users
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.cometchat.com/docs/rest-api/friends
-  baseURL: https://{appId}.api-{region}.cometchat.io/v3
-  properties:
-  - url: https://www.cometchat.com/docs/rest-api/friends
-    type: Documentation
-  - url: https://www.cometchat.com/docs/rest-api/blocked-users
-    type: APIReference
-  - url: openapi/cometchat-openapi.yml
-    type: OpenAPI
-  - url: collections/cometchat.postman_collection.json
-    type: Postman
-  description: Manage user-to-user relationships - add, list, and remove friends;
-    block, unblock, and list blocked users; and ban, unban, and list users banned
-    from a group.
-- aid: cometchat:cometchat-webhooks-api
-  name: CometChat Webhooks API
-  tags:
-  - Webhooks
-  - Events
-  - Triggers
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.cometchat.com/docs/rest-api/management-apis/webhooks/overview
-  baseURL: https://{appId}.api-{region}.cometchat.io/v3
-  properties:
-  - url: https://www.cometchat.com/docs/rest-api/management-apis/webhooks/overview
-    type: Documentation
-  - url: openapi/cometchat-openapi.yml
-    type: OpenAPI
-  - url: collections/cometchat.postman_collection.json
-    type: Postman
-  description: Register, list, update, and delete webhooks and manage which event
-    triggers (message sent, user created, group joined, and others) deliver
-    callbacks to your endpoints.
 - aid: cometchat:cometchat-realtime-sdk
   name: CometChat Realtime & Client SDK
   tags:
@@ -177,11 +49,443 @@ apis:
     type: Documentation
   - url: asyncapi/cometchat-asyncapi.yml
     type: AsyncAPI
-  description: Client SDKs (JavaScript, React, React Native, Android, iOS, Flutter,
-    Ionic) connect over a managed WebSocket layer for realtime message delivery,
-    typing indicators, presence, and read receipts. The socket is established and
-    maintained by the SDK via connect()/disconnect(); CometChat does not publish
+  description: >-
+    Client SDKs (JavaScript, React, React Native, Android, iOS, Flutter, Ionic) connect over a managed
+    WebSocket layer for realtime message delivery, typing indicators, presence, and read receipts. The
+    socket is established and maintained by the SDK via connect()/disconnect(); CometChat does not publish
     a raw wss endpoint or message protocol.
+- aid: cometchat:cometchat-auth-tokens-api
+  name: CometChat Auth Tokens API
+  description: Per-user authentication tokens for SDK login
+  humanURL: https://www.cometchat.com/docs/rest-api/users
+  baseURL: https://{appId}.api-{region}.cometchat.io/v3
+  tags:
+  - Auth Tokens
+  properties:
+  - type: OpenAPI
+    url: openapi/cometchat-auth-tokens-api-openapi.yml
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/users
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/chat-apis
+  - type: Postman
+    url: collections/cometchat.postman_collection.json
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/groups
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/group-members
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/messages
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/messages/list-messages
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/conversations
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/conversations/list-conversations
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/roles
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/friends
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/blocked-users
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/management-apis/webhooks/overview
+- aid: cometchat:cometchat-banned-users-api
+  name: CometChat Banned Users API
+  description: Ban and unban users from groups
+  humanURL: https://www.cometchat.com/docs/rest-api/users
+  baseURL: https://{appId}.api-{region}.cometchat.io/v3
+  tags:
+  - Banned Users
+  properties:
+  - type: OpenAPI
+    url: openapi/cometchat-banned-users-api-openapi.yml
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/users
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/chat-apis
+  - type: Postman
+    url: collections/cometchat.postman_collection.json
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/groups
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/group-members
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/messages
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/messages/list-messages
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/conversations
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/conversations/list-conversations
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/roles
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/friends
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/blocked-users
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/management-apis/webhooks/overview
+- aid: cometchat:cometchat-blocked-users-api
+  name: CometChat Blocked Users API
+  description: Block and unblock users
+  humanURL: https://www.cometchat.com/docs/rest-api/users
+  baseURL: https://{appId}.api-{region}.cometchat.io/v3
+  tags:
+  - Blocked Users
+  properties:
+  - type: OpenAPI
+    url: openapi/cometchat-blocked-users-api-openapi.yml
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/users
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/chat-apis
+  - type: Postman
+    url: collections/cometchat.postman_collection.json
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/groups
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/group-members
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/messages
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/messages/list-messages
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/conversations
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/conversations/list-conversations
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/roles
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/friends
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/blocked-users
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/management-apis/webhooks/overview
+- aid: cometchat:cometchat-conversations-api
+  name: CometChat Conversations API
+  description: List conversations and manage read/delivered state
+  humanURL: https://www.cometchat.com/docs/rest-api/users
+  baseURL: https://{appId}.api-{region}.cometchat.io/v3
+  tags:
+  - Conversations
+  properties:
+  - type: OpenAPI
+    url: openapi/cometchat-conversations-api-openapi.yml
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/users
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/chat-apis
+  - type: Postman
+    url: collections/cometchat.postman_collection.json
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/groups
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/group-members
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/messages
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/messages/list-messages
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/conversations
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/conversations/list-conversations
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/roles
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/friends
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/blocked-users
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/management-apis/webhooks/overview
+- aid: cometchat:cometchat-friends-api
+  name: CometChat Friends API
+  description: User-to-user friend relationships
+  humanURL: https://www.cometchat.com/docs/rest-api/users
+  baseURL: https://{appId}.api-{region}.cometchat.io/v3
+  tags:
+  - Friends
+  properties:
+  - type: OpenAPI
+    url: openapi/cometchat-friends-api-openapi.yml
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/users
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/chat-apis
+  - type: Postman
+    url: collections/cometchat.postman_collection.json
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/groups
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/group-members
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/messages
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/messages/list-messages
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/conversations
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/conversations/list-conversations
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/roles
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/friends
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/blocked-users
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/management-apis/webhooks/overview
+- aid: cometchat:cometchat-group-members-api
+  name: CometChat Group Members API
+  description: Add, list, kick, and scope group members
+  humanURL: https://www.cometchat.com/docs/rest-api/users
+  baseURL: https://{appId}.api-{region}.cometchat.io/v3
+  tags:
+  - Group Members
+  properties:
+  - type: OpenAPI
+    url: openapi/cometchat-group-members-api-openapi.yml
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/users
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/chat-apis
+  - type: Postman
+    url: collections/cometchat.postman_collection.json
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/groups
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/group-members
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/messages
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/messages/list-messages
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/conversations
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/conversations/list-conversations
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/roles
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/friends
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/blocked-users
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/management-apis/webhooks/overview
+- aid: cometchat:cometchat-groups-api
+  name: CometChat Groups API
+  description: Create and manage groups
+  humanURL: https://www.cometchat.com/docs/rest-api/users
+  baseURL: https://{appId}.api-{region}.cometchat.io/v3
+  tags:
+  - Groups
+  properties:
+  - type: OpenAPI
+    url: openapi/cometchat-groups-api-openapi.yml
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/users
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/chat-apis
+  - type: Postman
+    url: collections/cometchat.postman_collection.json
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/groups
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/group-members
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/messages
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/messages/list-messages
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/conversations
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/conversations/list-conversations
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/roles
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/friends
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/blocked-users
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/management-apis/webhooks/overview
+- aid: cometchat:cometchat-messages-api
+  name: CometChat Messages API
+  description: Send, list, edit, and delete messages
+  humanURL: https://www.cometchat.com/docs/rest-api/users
+  baseURL: https://{appId}.api-{region}.cometchat.io/v3
+  tags:
+  - Messages
+  properties:
+  - type: OpenAPI
+    url: openapi/cometchat-messages-api-openapi.yml
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/users
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/chat-apis
+  - type: Postman
+    url: collections/cometchat.postman_collection.json
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/groups
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/group-members
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/messages
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/messages/list-messages
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/conversations
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/conversations/list-conversations
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/roles
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/friends
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/blocked-users
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/management-apis/webhooks/overview
+- aid: cometchat:cometchat-reactions-api
+  name: CometChat Reactions API
+  description: Add and remove message reactions
+  humanURL: https://www.cometchat.com/docs/rest-api/users
+  baseURL: https://{appId}.api-{region}.cometchat.io/v3
+  tags:
+  - Reactions
+  properties:
+  - type: OpenAPI
+    url: openapi/cometchat-reactions-api-openapi.yml
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/users
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/chat-apis
+  - type: Postman
+    url: collections/cometchat.postman_collection.json
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/groups
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/group-members
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/messages
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/messages/list-messages
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/conversations
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/conversations/list-conversations
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/roles
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/friends
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/blocked-users
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/management-apis/webhooks/overview
+- aid: cometchat:cometchat-roles-api
+  name: CometChat Roles API
+  description: Custom roles and permissions
+  humanURL: https://www.cometchat.com/docs/rest-api/users
+  baseURL: https://{appId}.api-{region}.cometchat.io/v3
+  tags:
+  - Roles
+  properties:
+  - type: OpenAPI
+    url: openapi/cometchat-roles-api-openapi.yml
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/users
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/chat-apis
+  - type: Postman
+    url: collections/cometchat.postman_collection.json
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/groups
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/group-members
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/messages
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/messages/list-messages
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/conversations
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/conversations/list-conversations
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/roles
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/friends
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/blocked-users
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/management-apis/webhooks/overview
+- aid: cometchat:cometchat-users-api
+  name: CometChat Users API
+  description: Create and manage app users
+  humanURL: https://www.cometchat.com/docs/rest-api/users
+  baseURL: https://{appId}.api-{region}.cometchat.io/v3
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/cometchat-users-api-openapi.yml
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/users
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/chat-apis
+  - type: Postman
+    url: collections/cometchat.postman_collection.json
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/groups
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/group-members
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/messages
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/messages/list-messages
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/conversations
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/conversations/list-conversations
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/roles
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/friends
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/blocked-users
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/management-apis/webhooks/overview
+- aid: cometchat:cometchat-webhooks-api
+  name: CometChat Webhooks API
+  description: Register webhooks and manage event triggers
+  humanURL: https://www.cometchat.com/docs/rest-api/users
+  baseURL: https://{appId}.api-{region}.cometchat.io/v3
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/cometchat-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/users
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/chat-apis
+  - type: Postman
+    url: collections/cometchat.postman_collection.json
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/groups
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/group-members
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/messages
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/messages/list-messages
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/conversations
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/conversations/list-conversations
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/roles
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/friends
+  - type: APIReference
+    url: https://www.cometchat.com/docs/rest-api/blocked-users
+  - type: Documentation
+    url: https://www.cometchat.com/docs/rest-api/management-apis/webhooks/overview
 common:
 - type: AgenticAccess
   url: agentic-access/cometchat-agentic-access.yml
