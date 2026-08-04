@@ -1,0 +1,36 @@
+{
+  "provider": "cometchat",
+  "sources": [
+    "cometchat-auth-tokens-api-openapi.yml",
+    "cometchat-banned-users-api-openapi.yml",
+    "cometchat-blocked-users-api-openapi.yml",
+    "cometchat-conversations-api-openapi.yml",
+    "cometchat-friends-api-openapi.yml",
+    "cometchat-group-members-api-openapi.yml",
+    "cometchat-groups-api-openapi.yml",
+    "cometchat-messages-api-openapi.yml",
+    "cometchat-reactions-api-openapi.yml",
+    "cometchat-roles-api-openapi.yml",
+    "cometchat-users-api-openapi.yml",
+    "cometchat-webhooks-api-openapi.yml"
+  ],
+  "outputs": [
+    "cometchat-auth-tokens-api-openapi.yml",
+    "cometchat-banned-users-api-openapi.yml",
+    "cometchat-blocked-users-api-openapi.yml",
+    "cometchat-conversations-api-openapi.yml",
+    "cometchat-friends-api-openapi.yml",
+    "cometchat-group-members-api-openapi.yml",
+    "cometchat-groups-api-openapi.yml",
+    "cometchat-messages-api-openapi.yml",
+    "cometchat-reactions-api-openapi.yml",
+    "cometchat-roles-api-openapi.yml",
+    "cometchat-users-api-openapi.yml",
+    "cometchat-webhooks-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
