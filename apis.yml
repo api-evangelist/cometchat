@@ -47,8 +47,6 @@ apis:
     type: Documentation
   - url: https://www.cometchat.com/docs/sdk/javascript/managing-web-sockets-connections-manually
     type: Documentation
-  - url: asyncapi/cometchat-asyncapi.yml
-    type: AsyncAPI
   description: >-
     Client SDKs (JavaScript, React, React Native, Android, iOS, Flutter, Ionic) connect over a managed
     WebSocket layer for realtime message delivery, typing indicators, presence, and read receipts. The
