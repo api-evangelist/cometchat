@@ -1,0 +1,466 @@
+{
+  "item": [
+    {
+      "id": "c89241f7-adcc-474f-9185-9544af29190a",
+      "name": "Blocked Users",
+      "description": {
+        "content": "Block and unblock users",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "91a3a801-886a-4fb5-ae28-424a2e101bf7",
+          "name": "List a user's blocked users",
+          "request": {
+            "name": "List a user's blocked users",
+            "description": {},
+            "url": {
+              "path": [
+                "users",
+                ":uid",
+                "blockedusers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "uid",
+                  "description": "(Required) Unique user identifier."
+                },
+                {
+                  "description": "Your CometChat App ID from the dashboard",
+                  "type": "any",
+                  "value": "{{appId}}",
+                  "key": "appId"
+                },
+                {
+                  "description": "The region your CometChat app is provisioned in (This can only be one of us,eu,in)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "69fe02b6-0e0e-4506-bb62-ee97646a8bae",
+              "name": "A list of blocked users.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":uid",
+                    "blockedusers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "uid",
+                      "description": "(Required) Unique user identifier."
+                    },
+                    {
+                      "description": "Your CometChat App ID from the dashboard",
+                      "type": "any",
+                      "value": "{{appId}}",
+                      "key": "appId"
+                    },
+                    {
+                      "description": "The region your CometChat app is provisioned in (This can only be one of us,eu,in)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"avatar\": \"string\",\n      \"link\": \"string\",\n      \"role\": \"string\",\n      \"metadata\": {},\n      \"status\": \"offline\",\n      \"statusMessage\": \"string\",\n      \"hasBlockedMe\": true,\n      \"blockedByMe\": false,\n      \"createdAt\": 7978,\n      \"updatedAt\": 6951,\n      \"lastActiveAt\": 233,\n      \"deactivatedAt\": 4315\n    },\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"avatar\": \"string\",\n      \"link\": \"string\",\n      \"role\": \"string\",\n      \"metadata\": {},\n      \"status\": \"offline\",\n      \"statusMessage\": \"string\",\n      \"hasBlockedMe\": true,\n      \"blockedByMe\": false,\n      \"createdAt\": 2020,\n      \"updatedAt\": 4,\n      \"lastActiveAt\": 4419,\n      \"deactivatedAt\": 5178\n    }\n  ],\n  \"meta\": {\n    \"pagination\": {\n      \"total\": 3939,\n      \"count\": 7345,\n      \"per_page\": 6233,\n      \"current_page\": 5266,\n      \"total_pages\": 1517\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4956a043-7d5d-43a9-a978-4d1d72966339",
+          "name": "Block users",
+          "request": {
+            "name": "Block users",
+            "description": {},
+            "url": {
+              "path": [
+                "users",
+                ":uid",
+                "blockedusers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "uid",
+                  "description": "(Required) Unique user identifier."
+                },
+                {
+                  "description": "Your CometChat App ID from the dashboard",
+                  "type": "any",
+                  "value": "{{appId}}",
+                  "key": "appId"
+                },
+                {
+                  "description": "The region your CometChat app is provisioned in (This can only be one of us,eu,in)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"blockedUids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2fd533ec-07e7-4da1-b0d5-f4c87b5af324",
+              "name": "Acknowledgement.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":uid",
+                    "blockedusers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "uid",
+                      "description": "(Required) Unique user identifier."
+                    },
+                    {
+                      "description": "Your CometChat App ID from the dashboard",
+                      "type": "any",
+                      "value": "{{appId}}",
+                      "key": "appId"
+                    },
+                    {
+                      "description": "The region your CometChat app is provisioned in (This can only be one of us,eu,in)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"blockedUids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"success\": true,\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "18626b3f-bc96-47e1-b2a1-9b64ad6fe2a6",
+          "name": "Unblock users",
+          "request": {
+            "name": "Unblock users",
+            "description": {},
+            "url": {
+              "path": [
+                "users",
+                ":uid",
+                "blockedusers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "uid",
+                  "description": "(Required) Unique user identifier."
+                },
+                {
+                  "description": "Your CometChat App ID from the dashboard",
+                  "type": "any",
+                  "value": "{{appId}}",
+                  "key": "appId"
+                },
+                {
+                  "description": "The region your CometChat app is provisioned in (This can only be one of us,eu,in)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"blockedUids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3430ce65-5d8f-4851-9544-fed3543fa8c8",
+              "name": "Acknowledgement.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":uid",
+                    "blockedusers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "uid",
+                      "description": "(Required) Unique user identifier."
+                    },
+                    {
+                      "description": "Your CometChat App ID from the dashboard",
+                      "type": "any",
+                      "value": "{{appId}}",
+                      "key": "appId"
+                    },
+                    {
+                      "description": "The region your CometChat app is provisioned in (This can only be one of us,eu,in)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"blockedUids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"success\": true,\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your CometChat App ID from the dashboard",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "APP_ID",
+      "key": "appId"
+    },
+    {
+      "description": {
+        "content": "The region your CometChat app is provisioned in (This can only be one of us,eu,in)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "us",
+      "key": "region"
+    },
+    {
+      "type": "string",
+      "value": "https://{{appId}}.api-{{region}}.cometchat.io/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apikey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "57100e2d-f78f-4262-9268-02838d8619ed",
+    "name": "CometChat REST Management Auth Tokens Blocked Users API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Server-side REST Management API (v3) for CometChat in-app messaging. Manages users, authentication tokens, groups, group members, messages, conversations, reactions, roles, friends, blocked and banned users, and webhooks for a CometChat app. The API is scoped to a single app and region; the host is derived from your App ID and the region your app is provisioned in (us, eu, in). All requests authenticate with a Rest API Key (fullAccess scope) passed in the `apikey` header. Realtime delivery to end users is handled separately by the CometChat client SDKs over a managed WebSocket layer and is not part of this REST surface.\n\nContact Support:\n Name: CometChat Support",
+      "type": "text/plain"
+    }
+  }
+}

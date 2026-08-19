@@ -1,0 +1,135 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CometChat REST Management Auth Tokens API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Auth Tokens",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List auth tokens for a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{appId}.api-{region}.cometchat.io/v3/users/:uid/auth_tokens",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path",
+                "description": "Unique user identifier."
+              }
+            ]
+          },
+          "docs": "List auth tokens for a user"
+        },
+        {
+          "info": {
+            "name": "Create an auth token for a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{appId}.api-{region}.cometchat.io/v3/users/:uid/auth_tokens",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path",
+                "description": "Unique user identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an auth token for a user"
+        },
+        {
+          "info": {
+            "name": "Flush all auth tokens for a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{appId}.api-{region}.cometchat.io/v3/users/:uid/auth_tokens",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path",
+                "description": "Unique user identifier."
+              }
+            ]
+          },
+          "docs": "Flush all auth tokens for a user"
+        },
+        {
+          "info": {
+            "name": "Get an auth token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{appId}.api-{region}.cometchat.io/v3/users/:uid/auth_tokens/:authToken",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path",
+                "description": "Unique user identifier."
+              },
+              {
+                "name": "authToken",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get an auth token"
+        },
+        {
+          "info": {
+            "name": "Delete an auth token",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{appId}.api-{region}.cometchat.io/v3/users/:uid/auth_tokens/:authToken",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path",
+                "description": "Unique user identifier."
+              },
+              {
+                "name": "authToken",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete an auth token"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,715 @@
+{
+  "item": [
+    {
+      "id": "6ea88cf4-45d4-4424-bf57-5f5bffc319ff",
+      "name": "Auth Tokens",
+      "description": {
+        "content": "Per-user authentication tokens for SDK login",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "46bc5e32-08bc-4357-a79e-2783d18d713b",
+          "name": "List auth tokens for a user",
+          "request": {
+            "name": "List auth tokens for a user",
+            "description": {},
+            "url": {
+              "path": [
+                "users",
+                ":uid",
+                "auth_tokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "uid",
+                  "description": "(Required) Unique user identifier."
+                },
+                {
+                  "description": "Your CometChat App ID from the dashboard",
+                  "type": "any",
+                  "value": "{{appId}}",
+                  "key": "appId"
+                },
+                {
+                  "description": "The region your CometChat app is provisioned in (This can only be one of us,eu,in)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7dea81dc-afbf-4d10-8e22-85d51843ca8d",
+              "name": "A list of auth tokens.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":uid",
+                    "auth_tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "uid",
+                      "description": "(Required) Unique user identifier."
+                    },
+                    {
+                      "description": "Your CometChat App ID from the dashboard",
+                      "type": "any",
+                      "value": "{{appId}}",
+                      "key": "appId"
+                    },
+                    {
+                      "description": "The region your CometChat app is provisioned in (This can only be one of us,eu,in)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"uid\": \"string\",\n      \"authToken\": \"string\",\n      \"createdAt\": 4053\n    },\n    {\n      \"uid\": \"string\",\n      \"authToken\": \"string\",\n      \"createdAt\": 4104\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5e1e4d34-9ff8-4e00-9adc-66d50137604d",
+          "name": "Create an auth token for a user",
+          "request": {
+            "name": "Create an auth token for a user",
+            "description": {},
+            "url": {
+              "path": [
+                "users",
+                ":uid",
+                "auth_tokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "uid",
+                  "description": "(Required) Unique user identifier."
+                },
+                {
+                  "description": "Your CometChat App ID from the dashboard",
+                  "type": "any",
+                  "value": "{{appId}}",
+                  "key": "appId"
+                },
+                {
+                  "description": "The region your CometChat app is provisioned in (This can only be one of us,eu,in)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"force\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c19368cf-bf81-4867-a14e-9098f272837e",
+              "name": "The created auth token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":uid",
+                    "auth_tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "uid",
+                      "description": "(Required) Unique user identifier."
+                    },
+                    {
+                      "description": "Your CometChat App ID from the dashboard",
+                      "type": "any",
+                      "value": "{{appId}}",
+                      "key": "appId"
+                    },
+                    {
+                      "description": "The region your CometChat app is provisioned in (This can only be one of us,eu,in)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"force\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"uid\": \"string\",\n    \"authToken\": \"string\",\n    \"createdAt\": 6167\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c6d1c06f-ac6e-4292-a0aa-689b6c3b8d47",
+          "name": "Flush all auth tokens for a user",
+          "request": {
+            "name": "Flush all auth tokens for a user",
+            "description": {},
+            "url": {
+              "path": [
+                "users",
+                ":uid",
+                "auth_tokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "uid",
+                  "description": "(Required) Unique user identifier."
+                },
+                {
+                  "description": "Your CometChat App ID from the dashboard",
+                  "type": "any",
+                  "value": "{{appId}}",
+                  "key": "appId"
+                },
+                {
+                  "description": "The region your CometChat app is provisioned in (This can only be one of us,eu,in)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "142ef770-5837-4e84-85af-9185cc95fad0",
+              "name": "Acknowledgement.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":uid",
+                    "auth_tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "uid",
+                      "description": "(Required) Unique user identifier."
+                    },
+                    {
+                      "description": "Your CometChat App ID from the dashboard",
+                      "type": "any",
+                      "value": "{{appId}}",
+                      "key": "appId"
+                    },
+                    {
+                      "description": "The region your CometChat app is provisioned in (This can only be one of us,eu,in)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"success\": false,\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cc885833-aa1a-4b4d-ae28-764221952dda",
+          "name": "Get an auth token",
+          "request": {
+            "name": "Get an auth token",
+            "description": {},
+            "url": {
+              "path": [
+                "users",
+                ":uid",
+                "auth_tokens",
+                ":authToken"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "uid",
+                  "description": "(Required) Unique user identifier."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "authToken",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Your CometChat App ID from the dashboard",
+                  "type": "any",
+                  "value": "{{appId}}",
+                  "key": "appId"
+                },
+                {
+                  "description": "The region your CometChat app is provisioned in (This can only be one of us,eu,in)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "77082552-734c-4991-a2d1-2b1a805bfc9f",
+              "name": "The requested auth token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":uid",
+                    "auth_tokens",
+                    ":authToken"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "uid",
+                      "description": "(Required) Unique user identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "authToken",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your CometChat App ID from the dashboard",
+                      "type": "any",
+                      "value": "{{appId}}",
+                      "key": "appId"
+                    },
+                    {
+                      "description": "The region your CometChat app is provisioned in (This can only be one of us,eu,in)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"uid\": \"string\",\n    \"authToken\": \"string\",\n    \"createdAt\": 6167\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d5d0e055-543a-4a2c-a9d9-c4243064a367",
+          "name": "Delete an auth token",
+          "request": {
+            "name": "Delete an auth token",
+            "description": {},
+            "url": {
+              "path": [
+                "users",
+                ":uid",
+                "auth_tokens",
+                ":authToken"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "uid",
+                  "description": "(Required) Unique user identifier."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "authToken",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Your CometChat App ID from the dashboard",
+                  "type": "any",
+                  "value": "{{appId}}",
+                  "key": "appId"
+                },
+                {
+                  "description": "The region your CometChat app is provisioned in (This can only be one of us,eu,in)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "29469b27-0346-4f65-a9c8-b770b84b3c8b",
+              "name": "Acknowledgement.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":uid",
+                    "auth_tokens",
+                    ":authToken"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "uid",
+                      "description": "(Required) Unique user identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "authToken",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your CometChat App ID from the dashboard",
+                      "type": "any",
+                      "value": "{{appId}}",
+                      "key": "appId"
+                    },
+                    {
+                      "description": "The region your CometChat app is provisioned in (This can only be one of us,eu,in)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"success\": false,\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your CometChat App ID from the dashboard",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "APP_ID",
+      "key": "appId"
+    },
+    {
+      "description": {
+        "content": "The region your CometChat app is provisioned in (This can only be one of us,eu,in)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "us",
+      "key": "region"
+    },
+    {
+      "type": "string",
+      "value": "https://{{appId}}.api-{{region}}.cometchat.io/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apikey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3160a9b5-5c01-458b-94ce-ff543666502b",
+    "name": "CometChat REST Management Auth Tokens API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Server-side REST Management API (v3) for CometChat in-app messaging. Manages users, authentication tokens, groups, group members, messages, conversations, reactions, roles, friends, blocked and banned users, and webhooks for a CometChat app. The API is scoped to a single app and region; the host is derived from your App ID and the region your app is provisioned in (us, eu, in). All requests authenticate with a Rest API Key (fullAccess scope) passed in the `apikey` header. Realtime delivery to end users is handled separately by the CometChat client SDKs over a managed WebSocket layer and is not part of this REST surface.\n\nContact Support:\n Name: CometChat Support",
+      "type": "text/plain"
+    }
+  }
+}

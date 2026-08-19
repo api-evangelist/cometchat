@@ -1,0 +1,337 @@
+{
+  "item": [
+    {
+      "id": "d236db8f-99d1-4aec-a402-33ccf41d2c04",
+      "name": "Reactions",
+      "description": {
+        "content": "Add and remove message reactions",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "29ac83b2-7c53-4cc1-b490-ff89cde96058",
+          "name": "Add a reaction to a message",
+          "request": {
+            "name": "Add a reaction to a message",
+            "description": {},
+            "url": {
+              "path": [
+                "messages",
+                ":id",
+                "reactions",
+                ":reaction"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "id",
+                  "description": "(Required) Numeric message identifier."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "reaction",
+                  "description": "(Required) The emoji unicode for the reaction."
+                },
+                {
+                  "description": "Your CometChat App ID from the dashboard",
+                  "type": "any",
+                  "value": "{{appId}}",
+                  "key": "appId"
+                },
+                {
+                  "description": "The region your CometChat app is provisioned in (This can only be one of us,eu,in)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2094b0fa-977a-4038-b67e-9ce5999a01a9",
+              "name": "The updated reaction set.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messages",
+                    ":id",
+                    "reactions",
+                    ":reaction"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "id",
+                      "description": "(Required) Numeric message identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reaction",
+                      "description": "(Required) The emoji unicode for the reaction."
+                    },
+                    {
+                      "description": "Your CometChat App ID from the dashboard",
+                      "type": "any",
+                      "value": "{{appId}}",
+                      "key": "appId"
+                    },
+                    {
+                      "description": "The region your CometChat app is provisioned in (This can only be one of us,eu,in)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"success\": true,\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "85f8cf9c-7b8c-4dcc-bce0-c29b13ad0538",
+          "name": "Remove a reaction from a message",
+          "request": {
+            "name": "Remove a reaction from a message",
+            "description": {},
+            "url": {
+              "path": [
+                "messages",
+                ":id",
+                "reactions",
+                ":reaction"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "id",
+                  "description": "(Required) Numeric message identifier."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "reaction",
+                  "description": "(Required) The emoji unicode for the reaction."
+                },
+                {
+                  "description": "Your CometChat App ID from the dashboard",
+                  "type": "any",
+                  "value": "{{appId}}",
+                  "key": "appId"
+                },
+                {
+                  "description": "The region your CometChat app is provisioned in (This can only be one of us,eu,in)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a8a2a2c7-394a-4153-b451-7c65d12804cb",
+              "name": "Acknowledgement.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messages",
+                    ":id",
+                    "reactions",
+                    ":reaction"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "id",
+                      "description": "(Required) Numeric message identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reaction",
+                      "description": "(Required) The emoji unicode for the reaction."
+                    },
+                    {
+                      "description": "Your CometChat App ID from the dashboard",
+                      "type": "any",
+                      "value": "{{appId}}",
+                      "key": "appId"
+                    },
+                    {
+                      "description": "The region your CometChat app is provisioned in (This can only be one of us,eu,in)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"success\": true,\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your CometChat App ID from the dashboard",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "APP_ID",
+      "key": "appId"
+    },
+    {
+      "description": {
+        "content": "The region your CometChat app is provisioned in (This can only be one of us,eu,in)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "us",
+      "key": "region"
+    },
+    {
+      "type": "string",
+      "value": "https://{{appId}}.api-{{region}}.cometchat.io/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apikey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4725aaa7-7f53-44b1-b27f-be4a335b1df5",
+    "name": "CometChat REST Management Auth Tokens Reactions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Server-side REST Management API (v3) for CometChat in-app messaging. Manages users, authentication tokens, groups, group members, messages, conversations, reactions, roles, friends, blocked and banned users, and webhooks for a CometChat app. The API is scoped to a single app and region; the host is derived from your App ID and the region your app is provisioned in (us, eu, in). All requests authenticate with a Rest API Key (fullAccess scope) passed in the `apikey` header. Realtime delivery to end users is handled separately by the CometChat client SDKs over a managed WebSocket layer and is not part of this REST surface.\n\nContact Support:\n Name: CometChat Support",
+      "type": "text/plain"
+    }
+  }
+}

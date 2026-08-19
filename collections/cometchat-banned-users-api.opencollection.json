@@ -1,0 +1,93 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CometChat REST Management Auth Tokens Banned Users API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Banned Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List users banned from a group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{appId}.api-{region}.cometchat.io/v3/groups/:guid/bannedusers",
+            "params": [
+              {
+                "name": "guid",
+                "value": "",
+                "type": "path",
+                "description": "Unique group identifier (lowercased automatically)."
+              }
+            ]
+          },
+          "docs": "List users banned from a group"
+        },
+        {
+          "info": {
+            "name": "Ban users from a group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{appId}.api-{region}.cometchat.io/v3/groups/:guid/bannedusers",
+            "params": [
+              {
+                "name": "guid",
+                "value": "",
+                "type": "path",
+                "description": "Unique group identifier (lowercased automatically)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Ban users from a group"
+        },
+        {
+          "info": {
+            "name": "Unban a user from a group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{appId}.api-{region}.cometchat.io/v3/groups/:guid/bannedusers/:uid",
+            "params": [
+              {
+                "name": "guid",
+                "value": "",
+                "type": "path",
+                "description": "Unique group identifier (lowercased automatically)."
+              },
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path",
+                "description": "Unique user identifier."
+              }
+            ]
+          },
+          "docs": "Unban a user from a group"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

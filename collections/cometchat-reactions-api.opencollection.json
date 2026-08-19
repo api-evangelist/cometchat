@@ -1,0 +1,76 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CometChat REST Management Auth Tokens Reactions API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Reactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Add a reaction to a message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{appId}.api-{region}.cometchat.io/v3/messages/:id/reactions/:reaction",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Numeric message identifier."
+              },
+              {
+                "name": "reaction",
+                "value": "",
+                "type": "path",
+                "description": "The emoji unicode for the reaction."
+              }
+            ]
+          },
+          "docs": "Add a reaction to a message"
+        },
+        {
+          "info": {
+            "name": "Remove a reaction from a message",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{appId}.api-{region}.cometchat.io/v3/messages/:id/reactions/:reaction",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Numeric message identifier."
+              },
+              {
+                "name": "reaction",
+                "value": "",
+                "type": "path",
+                "description": "The emoji unicode for the reaction."
+              }
+            ]
+          },
+          "docs": "Remove a reaction from a message"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
