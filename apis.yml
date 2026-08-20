@@ -27,6 +27,13 @@ tags:
 - Voice
 - Video
 - SDK
+- Real-Time
+tags_raw:
+- Chat
+- Messaging
+- Voice
+- Video
+- SDK
 - Realtime
 created: '2026-06-20'
 modified: '2026-06-20'
@@ -35,6 +42,11 @@ apis:
 - aid: cometchat:cometchat-realtime-sdk
   name: CometChat Realtime & Client SDK
   tags:
+  - Real-Time
+  - WebSocket
+  - SDK
+  - Presence
+  tags_raw:
   - Realtime
   - WebSocket
   - SDK
@@ -274,6 +286,8 @@ apis:
   humanURL: https://www.cometchat.com/docs/rest-api/users
   baseURL: https://{appId}.api-{region}.cometchat.io/v3
   tags:
+  - Group
+  tags_raw:
   - Groups
   properties:
   - type: OpenAPI
@@ -310,6 +324,8 @@ apis:
   humanURL: https://www.cometchat.com/docs/rest-api/users
   baseURL: https://{appId}.api-{region}.cometchat.io/v3
   tags:
+  - Message
+  tags_raw:
   - Messages
   properties:
   - type: OpenAPI
@@ -418,6 +434,8 @@ apis:
   humanURL: https://www.cometchat.com/docs/rest-api/users
   baseURL: https://{appId}.api-{region}.cometchat.io/v3
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
@@ -454,6 +472,8 @@ apis:
   humanURL: https://www.cometchat.com/docs/rest-api/users
   baseURL: https://{appId}.api-{region}.cometchat.io/v3
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
