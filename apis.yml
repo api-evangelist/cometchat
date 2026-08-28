@@ -7,6 +7,18 @@ description: CometChat is an in-app messaging platform offering chat, voice, and
   tokens, groups, group members, messages, conversations, reactions, roles, and
   webhooks for an app, while client SDKs and a managed realtime WebSocket layer
   deliver one-to-one and group conversations, presence, and calling.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: self-serve
