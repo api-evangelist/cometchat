@@ -517,6 +517,9 @@ apis:
   - type: Documentation
     url: https://www.cometchat.com/docs/rest-api/management-apis/webhooks/overview
 common:
+- type: CapabilityMap
+  url: capabilities/cometchat-capability-edges.yml
+  name: CometChat Business Capability Map
 - type: AgenticAccess
   url: agentic-access/cometchat-agentic-access.yml
 - type: DomainSecurity
