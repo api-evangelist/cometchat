@@ -10,6 +10,11 @@ provenance:
   grounding: every price_text was found verbatim in the fetched page text
 audience: developer-api
 pricing_basis: tiered-subscription
+delivery:
+  delivery: managed
+  method: page
+  read: '2026-09-20'
+  managed_tier: Basic
 published: true
 note: Paid tier prices render as '$ /month' (dynamic slider values not in text); only free plan price
   and overage rates ($0.10 per MAU, $1 per concurrent) are numeric.
