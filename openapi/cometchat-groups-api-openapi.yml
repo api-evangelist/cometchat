@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: CometChat REST Management Auth Tokens Groups API
-  description: Server-side REST Management API (v3) for CometChat in-app messaging. Manages users, authentication tokens, groups, group members, messages, conversations, reactions, roles, friends, blocked and banned users, and webhooks for a CometChat app. The API is scoped to a single app and region; the host is derived from your App ID and the region your app is provisioned in (us, eu, in). All requests authenticate with a Rest API Key (fullAccess scope) passed in the `apikey` header. Realtime delivery to end users is handled separately by the CometChat client SDKs over a managed WebSocket layer and is not part of this REST surface.
+  title: CometChat REST Management Groups API
+  description: Server-side REST Management API (v3) for CometChat in-app messaging.
   termsOfService: https://www.cometchat.com/terms-and-conditions
   contact:
     name: CometChat Support
@@ -111,24 +111,48 @@ paths:
               schema:
                 $ref: '#/components/schemas/Acknowledgement'
 components:
+  parameters:
+    Guid:
+      name: guid
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Unique group identifier (lowercased automatically).
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+    PerPage:
+      name: perPage
+      in: query
+      schema:
+        type: integer
+        default: 25
+        maximum: 100
   schemas:
-    GroupList:
+    CreateGroupRequest:
       type: object
+      required:
+      - guid
+      - name
+      - type
       properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Group'
-        meta:
-          type: object
-          properties:
-            pagination:
-              $ref: '#/components/schemas/Pagination'
-    UpdateGroupRequest:
-      type: object
-      properties:
+        guid:
+          type: string
         name:
           type: string
+        type:
+          type: string
+          enum:
+          - public
+          - private
+          - password
+        password:
+          type: string
+          description: Required when type is password.
         icon:
           type: string
         description:
@@ -154,16 +178,23 @@ components:
           type: integer
         total_pages:
           type: integer
-    Acknowledgement:
+    UpdateGroupRequest:
       type: object
       properties:
-        data:
+        name:
+          type: string
+        icon:
+          type: string
+        description:
+          type: string
+        owner:
+          type: string
+        metadata:
           type: object
-          properties:
-            success:
-              type: boolean
-            message:
-              type: string
+        tags:
+          type: array
+          items:
+            type: string
     Group:
       type: object
       properties:
@@ -204,59 +235,28 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/Group'
-    CreateGroupRequest:
+    Acknowledgement:
       type: object
-      required:
-      - guid
-      - name
-      - type
       properties:
-        guid:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-          enum:
-          - public
-          - private
-          - password
-        password:
-          type: string
-          description: Required when type is password.
-        icon:
-          type: string
-        description:
-          type: string
-        owner:
-          type: string
-        metadata:
+        data:
           type: object
-        tags:
+          properties:
+            success:
+              type: boolean
+            message:
+              type: string
+    GroupList:
+      type: object
+      properties:
+        data:
           type: array
           items:
-            type: string
-  parameters:
-    Guid:
-      name: guid
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Unique group identifier (lowercased automatically).
-    Page:
-      name: page
-      in: query
-      schema:
-        type: integer
-        default: 1
-    PerPage:
-      name: perPage
-      in: query
-      schema:
-        type: integer
-        default: 25
-        maximum: 100
+            $ref: '#/components/schemas/Group'
+        meta:
+          type: object
+          properties:
+            pagination:
+              $ref: '#/components/schemas/Pagination'
   securitySchemes:
     apiKeyAuth:
       type: apiKey

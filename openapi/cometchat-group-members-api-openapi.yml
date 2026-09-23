@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: CometChat REST Management Auth Tokens Group Members API
-  description: Server-side REST Management API (v3) for CometChat in-app messaging. Manages users, authentication tokens, groups, group members, messages, conversations, reactions, roles, friends, blocked and banned users, and webhooks for a CometChat app. The API is scoped to a single app and region; the host is derived from your App ID and the region your app is provisioned in (us, eu, in). All requests authenticate with a Rest API Key (fullAccess scope) passed in the `apikey` header. Realtime delivery to end users is handled separately by the CometChat client SDKs over a managed WebSocket layer and is not part of this REST surface.
+  title: CometChat REST Management Group Members API
+  description: Server-side REST Management API (v3) for CometChat in-app messaging.
   termsOfService: https://www.cometchat.com/terms-and-conditions
   contact:
     name: CometChat Support
@@ -110,98 +110,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Acknowledgement'
 components:
-  schemas:
-    AddMembersResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          additionalProperties:
-            type: string
-    Pagination:
-      type: object
-      properties:
-        total:
-          type: integer
-        count:
-          type: integer
-        per_page:
-          type: integer
-        current_page:
-          type: integer
-        total_pages:
-          type: integer
-    GroupMemberList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/GroupMember'
-        meta:
-          type: object
-          properties:
-            pagination:
-              $ref: '#/components/schemas/Pagination'
-    GroupMember:
-      type: object
-      properties:
-        uid:
-          type: string
-        name:
-          type: string
-        scope:
-          type: string
-          enum:
-          - admin
-          - moderator
-          - participant
-        joinedAt:
-          type: integer
-          format: int64
-    Acknowledgement:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            success:
-              type: boolean
-            message:
-              type: string
-    AddMembersRequest:
-      type: object
-      properties:
-        participants:
-          type: array
-          items:
-            type: string
-        moderators:
-          type: array
-          items:
-            type: string
-        admins:
-          type: array
-          items:
-            type: string
-        usersToBan:
-          type: array
-          items:
-            type: string
-    ChangeScopeRequest:
-      type: object
-      required:
-      - uid
-      - scope
-      properties:
-        uid:
-          type: string
-        scope:
-          type: string
-          enum:
-          - admin
-          - moderator
-          - participant
   parameters:
     Guid:
       name: guid
@@ -230,6 +138,98 @@ components:
       schema:
         type: string
       description: Unique user identifier.
+  schemas:
+    Pagination:
+      type: object
+      properties:
+        total:
+          type: integer
+        count:
+          type: integer
+        per_page:
+          type: integer
+        current_page:
+          type: integer
+        total_pages:
+          type: integer
+    ChangeScopeRequest:
+      type: object
+      required:
+      - uid
+      - scope
+      properties:
+        uid:
+          type: string
+        scope:
+          type: string
+          enum:
+          - admin
+          - moderator
+          - participant
+    GroupMemberList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupMember'
+        meta:
+          type: object
+          properties:
+            pagination:
+              $ref: '#/components/schemas/Pagination'
+    AddMembersRequest:
+      type: object
+      properties:
+        participants:
+          type: array
+          items:
+            type: string
+        moderators:
+          type: array
+          items:
+            type: string
+        admins:
+          type: array
+          items:
+            type: string
+        usersToBan:
+          type: array
+          items:
+            type: string
+    AddMembersResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          additionalProperties:
+            type: string
+    GroupMember:
+      type: object
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+        scope:
+          type: string
+          enum:
+          - admin
+          - moderator
+          - participant
+        joinedAt:
+          type: integer
+          format: int64
+    Acknowledgement:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            success:
+              type: boolean
+            message:
+              type: string
   securitySchemes:
     apiKeyAuth:
       type: apiKey

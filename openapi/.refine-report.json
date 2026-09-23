@@ -1,18 +1,7 @@
 {
   "provider": "cometchat",
   "sources": [
-    "cometchat-auth-tokens-api-openapi.yml",
-    "cometchat-banned-users-api-openapi.yml",
-    "cometchat-blocked-users-api-openapi.yml",
-    "cometchat-conversations-api-openapi.yml",
-    "cometchat-friends-api-openapi.yml",
-    "cometchat-group-members-api-openapi.yml",
-    "cometchat-groups-api-openapi.yml",
-    "cometchat-messages-api-openapi.yml",
-    "cometchat-reactions-api-openapi.yml",
-    "cometchat-roles-api-openapi.yml",
-    "cometchat-users-api-openapi.yml",
-    "cometchat-webhooks-api-openapi.yml"
+    "_original/cometchat-openapi.yml"
   ],
   "outputs": [
     "cometchat-auth-tokens-api-openapi.yml",
@@ -31,6 +20,23 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "cometchat-openapi.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "cometchat-auth-tokens-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "cometchat-banned-users-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "cometchat-blocked-users-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "cometchat-conversations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "cometchat-friends-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "cometchat-group-members-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "cometchat-groups-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "cometchat-messages-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "cometchat-reactions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "cometchat-roles-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "cometchat-users-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "cometchat-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: CometChat REST Management Auth Tokens Friends API
-  description: Server-side REST Management API (v3) for CometChat in-app messaging. Manages users, authentication tokens, groups, group members, messages, conversations, reactions, roles, friends, blocked and banned users, and webhooks for a CometChat app. The API is scoped to a single app and region; the host is derived from your App ID and the region your app is provisioned in (us, eu, in). All requests authenticate with a Rest API Key (fullAccess scope) passed in the `apikey` header. Realtime delivery to end users is handled separately by the CometChat client SDKs over a managed WebSocket layer and is not part of this REST surface.
+  title: CometChat REST Management Friends API
+  description: Server-side REST Management API (v3) for CometChat in-app messaging.
   termsOfService: https://www.cometchat.com/terms-and-conditions
   contact:
     name: CometChat Support
@@ -81,6 +81,19 @@ paths:
                 $ref: '#/components/schemas/Acknowledgement'
 components:
   schemas:
+    Pagination:
+      type: object
+      properties:
+        total:
+          type: integer
+        count:
+          type: integer
+        per_page:
+          type: integer
+        current_page:
+          type: integer
+        total_pages:
+          type: integer
     User:
       type: object
       properties:
@@ -119,6 +132,16 @@ components:
         deactivatedAt:
           type: integer
           format: int64
+    FriendsRequest:
+      type: object
+      required:
+      - friends
+      properties:
+        friends:
+          type: array
+          items:
+            type: string
+          description: List of UIDs.
     UserList:
       type: object
       properties:
@@ -131,19 +154,6 @@ components:
           properties:
             pagination:
               $ref: '#/components/schemas/Pagination'
-    Pagination:
-      type: object
-      properties:
-        total:
-          type: integer
-        count:
-          type: integer
-        per_page:
-          type: integer
-        current_page:
-          type: integer
-        total_pages:
-          type: integer
     Acknowledgement:
       type: object
       properties:
@@ -154,16 +164,6 @@ components:
               type: boolean
             message:
               type: string
-    FriendsRequest:
-      type: object
-      required:
-      - friends
-      properties:
-        friends:
-          type: array
-          items:
-            type: string
-          description: List of UIDs.
   parameters:
     Uid:
       name: uid

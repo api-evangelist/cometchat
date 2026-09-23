@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: CometChat REST Management Auth Tokens Banned Users API
-  description: Server-side REST Management API (v3) for CometChat in-app messaging. Manages users, authentication tokens, groups, group members, messages, conversations, reactions, roles, friends, blocked and banned users, and webhooks for a CometChat app. The API is scoped to a single app and region; the host is derived from your App ID and the region your app is provisioned in (us, eu, in). All requests authenticate with a Rest API Key (fullAccess scope) passed in the `apikey` header. Realtime delivery to end users is handled separately by the CometChat client SDKs over a managed WebSocket layer and is not part of this REST surface.
+  title: CometChat REST Management Banned Users API
+  description: Server-side REST Management API (v3) for CometChat in-app messaging.
   termsOfService: https://www.cometchat.com/terms-and-conditions
   contact:
     name: CometChat Support
@@ -93,6 +93,15 @@ components:
         type: string
       description: Unique user identifier.
   schemas:
+    BanUsersRequest:
+      type: object
+      required:
+      - uids
+      properties:
+        uids:
+          type: array
+          items:
+            type: string
     Pagination:
       type: object
       properties:
@@ -134,15 +143,6 @@ components:
         joinedAt:
           type: integer
           format: int64
-    BanUsersRequest:
-      type: object
-      required:
-      - uids
-      properties:
-        uids:
-          type: array
-          items:
-            type: string
     Acknowledgement:
       type: object
       properties:

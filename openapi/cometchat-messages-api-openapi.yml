@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: CometChat REST Management Auth Tokens Messages API
-  description: Server-side REST Management API (v3) for CometChat in-app messaging. Manages users, authentication tokens, groups, group members, messages, conversations, reactions, roles, friends, blocked and banned users, and webhooks for a CometChat app. The API is scoped to a single app and region; the host is derived from your App ID and the region your app is provisioned in (us, eu, in). All requests authenticate with a Rest API Key (fullAccess scope) passed in the `apikey` header. Realtime delivery to end users is handled separately by the CometChat client SDKs over a managed WebSocket layer and is not part of this REST surface.
+  title: CometChat REST Management Messages API
+  description: Server-side REST Management API (v3) for CometChat in-app messaging.
   termsOfService: https://www.cometchat.com/terms-and-conditions
   contact:
     name: CometChat Support
@@ -152,61 +152,29 @@ paths:
               schema:
                 $ref: '#/components/schemas/Acknowledgement'
 components:
+  parameters:
+    MessageId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int64
+      description: Numeric message identifier.
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+    PerPage:
+      name: perPage
+      in: query
+      schema:
+        type: integer
+        default: 25
+        maximum: 100
   schemas:
-    MessageList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Message'
-        meta:
-          type: object
-          properties:
-            pagination:
-              $ref: '#/components/schemas/Pagination'
-    UpdateMessageRequest:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            text:
-              type: string
-            metadata:
-              type: object
-        tags:
-          type: array
-          items:
-            type: string
-    Pagination:
-      type: object
-      properties:
-        total:
-          type: integer
-        count:
-          type: integer
-        per_page:
-          type: integer
-        current_page:
-          type: integer
-        total_pages:
-          type: integer
-    Acknowledgement:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            success:
-              type: boolean
-            message:
-              type: string
-    MessageResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/Message'
     SendMessageRequest:
       type: object
       required:
@@ -248,6 +216,29 @@ components:
           type: array
           items:
             type: string
+    Pagination:
+      type: object
+      properties:
+        total:
+          type: integer
+        count:
+          type: integer
+        per_page:
+          type: integer
+        current_page:
+          type: integer
+        total_pages:
+          type: integer
+    Acknowledgement:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            success:
+              type: boolean
+            message:
+              type: string
     Message:
       type: object
       properties:
@@ -285,28 +276,37 @@ components:
         deletedAt:
           type: integer
           format: int64
-  parameters:
-    Page:
-      name: page
-      in: query
-      schema:
-        type: integer
-        default: 1
-    MessageId:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: integer
-        format: int64
-      description: Numeric message identifier.
-    PerPage:
-      name: perPage
-      in: query
-      schema:
-        type: integer
-        default: 25
-        maximum: 100
+    UpdateMessageRequest:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            text:
+              type: string
+            metadata:
+              type: object
+        tags:
+          type: array
+          items:
+            type: string
+    MessageList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+        meta:
+          type: object
+          properties:
+            pagination:
+              $ref: '#/components/schemas/Pagination'
+    MessageResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Message'
   securitySchemes:
     apiKeyAuth:
       type: apiKey
