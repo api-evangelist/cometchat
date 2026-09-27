@@ -79,6 +79,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/Acknowledgement'
 components:
+  parameters:
+    Uid:
+      name: uid
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Unique user identifier.
   schemas:
     Pagination:
       type: object
@@ -93,6 +101,37 @@ components:
           type: integer
         total_pages:
           type: integer
+    UserList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        meta:
+          type: object
+          properties:
+            pagination:
+              $ref: '#/components/schemas/Pagination'
+    Acknowledgement:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            success:
+              type: boolean
+            message:
+              type: string
+    BlockUsersRequest:
+      type: object
+      required:
+      - blockedUids
+      properties:
+        blockedUids:
+          type: array
+          items:
+            type: string
     User:
       type: object
       properties:
@@ -131,45 +170,6 @@ components:
         deactivatedAt:
           type: integer
           format: int64
-    BlockUsersRequest:
-      type: object
-      required:
-      - blockedUids
-      properties:
-        blockedUids:
-          type: array
-          items:
-            type: string
-    UserList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/User'
-        meta:
-          type: object
-          properties:
-            pagination:
-              $ref: '#/components/schemas/Pagination'
-    Acknowledgement:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            success:
-              type: boolean
-            message:
-              type: string
-  parameters:
-    Uid:
-      name: uid
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Unique user identifier.
   securitySchemes:
     apiKeyAuth:
       type: apiKey

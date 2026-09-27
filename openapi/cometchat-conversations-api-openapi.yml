@@ -80,35 +80,6 @@ paths:
                 $ref: '#/components/schemas/ConversationResponse'
 components:
   schemas:
-    Conversation:
-      type: object
-      properties:
-        conversationId:
-          type: string
-        conversationType:
-          type: string
-          enum:
-          - user
-          - group
-        lastMessage:
-          $ref: '#/components/schemas/Message'
-        unreadMessageCount:
-          type: integer
-        updatedAt:
-          type: integer
-          format: int64
-    ConversationList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Conversation'
-        meta:
-          type: object
-          properties:
-            pagination:
-              $ref: '#/components/schemas/Pagination'
     Pagination:
       type: object
       properties:
@@ -159,18 +130,41 @@ components:
         deletedAt:
           type: integer
           format: int64
+    ConversationList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Conversation'
+        meta:
+          type: object
+          properties:
+            pagination:
+              $ref: '#/components/schemas/Pagination'
     ConversationResponse:
       type: object
       properties:
         data:
           $ref: '#/components/schemas/Conversation'
+    Conversation:
+      type: object
+      properties:
+        conversationId:
+          type: string
+        conversationType:
+          type: string
+          enum:
+          - user
+          - group
+        lastMessage:
+          $ref: '#/components/schemas/Message'
+        unreadMessageCount:
+          type: integer
+        updatedAt:
+          type: integer
+          format: int64
   parameters:
-    Page:
-      name: page
-      in: query
-      schema:
-        type: integer
-        default: 1
     PerPage:
       name: perPage
       in: query
@@ -178,6 +172,12 @@ components:
         type: integer
         default: 25
         maximum: 100
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
   securitySchemes:
     apiKeyAuth:
       type: apiKey

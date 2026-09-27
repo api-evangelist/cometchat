@@ -78,13 +78,6 @@ paths:
                 $ref: '#/components/schemas/Acknowledgement'
 components:
   parameters:
-    Guid:
-      name: guid
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Unique group identifier (lowercased automatically).
     Uid:
       name: uid
       in: path
@@ -92,16 +85,14 @@ components:
       schema:
         type: string
       description: Unique user identifier.
+    Guid:
+      name: guid
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Unique group identifier (lowercased automatically).
   schemas:
-    BanUsersRequest:
-      type: object
-      required:
-      - uids
-      properties:
-        uids:
-          type: array
-          items:
-            type: string
     Pagination:
       type: object
       properties:
@@ -127,6 +118,25 @@ components:
           properties:
             pagination:
               $ref: '#/components/schemas/Pagination'
+    BanUsersRequest:
+      type: object
+      required:
+      - uids
+      properties:
+        uids:
+          type: array
+          items:
+            type: string
+    Acknowledgement:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            success:
+              type: boolean
+            message:
+              type: string
     GroupMember:
       type: object
       properties:
@@ -143,16 +153,6 @@ components:
         joinedAt:
           type: integer
           format: int64
-    Acknowledgement:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            success:
-              type: boolean
-            message:
-              type: string
   securitySchemes:
     apiKeyAuth:
       type: apiKey

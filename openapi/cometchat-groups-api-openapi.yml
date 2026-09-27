@@ -111,60 +111,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Acknowledgement'
 components:
-  parameters:
-    Guid:
-      name: guid
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Unique group identifier (lowercased automatically).
-    Page:
-      name: page
-      in: query
-      schema:
-        type: integer
-        default: 1
-    PerPage:
-      name: perPage
-      in: query
-      schema:
-        type: integer
-        default: 25
-        maximum: 100
   schemas:
-    CreateGroupRequest:
-      type: object
-      required:
-      - guid
-      - name
-      - type
-      properties:
-        guid:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-          enum:
-          - public
-          - private
-          - password
-        password:
-          type: string
-          description: Required when type is password.
-        icon:
-          type: string
-        description:
-          type: string
-        owner:
-          type: string
-        metadata:
-          type: object
-        tags:
-          type: array
-          items:
-            type: string
     Pagination:
       type: object
       properties:
@@ -178,23 +125,11 @@ components:
           type: integer
         total_pages:
           type: integer
-    UpdateGroupRequest:
+    GroupResponse:
       type: object
       properties:
-        name:
-          type: string
-        icon:
-          type: string
-        description:
-          type: string
-        owner:
-          type: string
-        metadata:
-          type: object
-        tags:
-          type: array
-          items:
-            type: string
+        data:
+          $ref: '#/components/schemas/Group'
     Group:
       type: object
       properties:
@@ -230,11 +165,6 @@ components:
         updatedAt:
           type: integer
           format: int64
-    GroupResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/Group'
     Acknowledgement:
       type: object
       properties:
@@ -245,6 +175,23 @@ components:
               type: boolean
             message:
               type: string
+    UpdateGroupRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        icon:
+          type: string
+        description:
+          type: string
+        owner:
+          type: string
+        metadata:
+          type: object
+        tags:
+          type: array
+          items:
+            type: string
     GroupList:
       type: object
       properties:
@@ -257,6 +204,59 @@ components:
           properties:
             pagination:
               $ref: '#/components/schemas/Pagination'
+    CreateGroupRequest:
+      type: object
+      required:
+      - guid
+      - name
+      - type
+      properties:
+        guid:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+          - public
+          - private
+          - password
+        password:
+          type: string
+          description: Required when type is password.
+        icon:
+          type: string
+        description:
+          type: string
+        owner:
+          type: string
+        metadata:
+          type: object
+        tags:
+          type: array
+          items:
+            type: string
+  parameters:
+    PerPage:
+      name: perPage
+      in: query
+      schema:
+        type: integer
+        default: 25
+        maximum: 100
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+    Guid:
+      name: guid
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Unique group identifier (lowercased automatically).
   securitySchemes:
     apiKeyAuth:
       type: apiKey

@@ -111,26 +111,6 @@ paths:
                 $ref: '#/components/schemas/Acknowledgement'
 components:
   parameters:
-    Guid:
-      name: guid
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Unique group identifier (lowercased automatically).
-    Page:
-      name: page
-      in: query
-      schema:
-        type: integer
-        default: 1
-    PerPage:
-      name: perPage
-      in: query
-      schema:
-        type: integer
-        default: 25
-        maximum: 100
     Uid:
       name: uid
       in: path
@@ -138,6 +118,26 @@ components:
       schema:
         type: string
       description: Unique user identifier.
+    PerPage:
+      name: perPage
+      in: query
+      schema:
+        type: integer
+        default: 25
+        maximum: 100
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+    Guid:
+      name: guid
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Unique group identifier (lowercased automatically).
   schemas:
     Pagination:
       type: object
@@ -152,6 +152,18 @@ components:
           type: integer
         total_pages:
           type: integer
+    GroupMemberList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupMember'
+        meta:
+          type: object
+          properties:
+            pagination:
+              $ref: '#/components/schemas/Pagination'
     ChangeScopeRequest:
       type: object
       required:
@@ -166,18 +178,16 @@ components:
           - admin
           - moderator
           - participant
-    GroupMemberList:
+    Acknowledgement:
       type: object
       properties:
         data:
-          type: array
-          items:
-            $ref: '#/components/schemas/GroupMember'
-        meta:
           type: object
           properties:
-            pagination:
-              $ref: '#/components/schemas/Pagination'
+            success:
+              type: boolean
+            message:
+              type: string
     AddMembersRequest:
       type: object
       properties:
@@ -220,16 +230,6 @@ components:
         joinedAt:
           type: integer
           format: int64
-    Acknowledgement:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            success:
-              type: boolean
-            message:
-              type: string
   securitySchemes:
     apiKeyAuth:
       type: apiKey

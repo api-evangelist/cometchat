@@ -203,13 +203,6 @@ components:
           enum:
           - active
           - inactive
-    WebhookList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Webhook'
     TriggersRequest:
       type: object
       required:
@@ -219,11 +212,23 @@ components:
           type: array
           items:
             type: string
-    WebhookResponse:
+    WebhookList:
       type: object
       properties:
         data:
-          $ref: '#/components/schemas/Webhook'
+          type: array
+          items:
+            $ref: '#/components/schemas/Webhook'
+    Acknowledgement:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            success:
+              type: boolean
+            message:
+              type: string
     CreateWebhookRequest:
       type: object
       required:
@@ -255,16 +260,11 @@ components:
               type: string
             password:
               type: string
-    Acknowledgement:
+    WebhookResponse:
       type: object
       properties:
         data:
-          type: object
-          properties:
-            success:
-              type: boolean
-            message:
-              type: string
+          $ref: '#/components/schemas/Webhook'
   securitySchemes:
     apiKeyAuth:
       type: apiKey

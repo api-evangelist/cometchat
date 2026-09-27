@@ -159,12 +159,28 @@ paths:
               schema:
                 $ref: '#/components/schemas/UserResponse'
 components:
+  parameters:
+    Uid:
+      name: uid
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Unique user identifier.
+    PerPage:
+      name: perPage
+      in: query
+      schema:
+        type: integer
+        default: 25
+        maximum: 100
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
   schemas:
-    UserResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/User'
     Pagination:
       type: object
       properties:
@@ -178,6 +194,67 @@ components:
           type: integer
         total_pages:
           type: integer
+    UpdateUserRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        avatar:
+          type: string
+        link:
+          type: string
+        role:
+          type: string
+        metadata:
+          type: object
+    UserList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        meta:
+          type: object
+          properties:
+            pagination:
+              $ref: '#/components/schemas/Pagination'
+    Acknowledgement:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            success:
+              type: boolean
+            message:
+              type: string
+    UserResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/User'
+    CreateUserRequest:
+      type: object
+      required:
+      - uid
+      - name
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+        avatar:
+          type: string
+        link:
+          type: string
+        role:
+          type: string
+        metadata:
+          type: object
+        withAuthToken:
+          type: boolean
+          description: Also generate an auth token for the new user.
     User:
       type: object
       properties:
@@ -216,83 +293,6 @@ components:
         deactivatedAt:
           type: integer
           format: int64
-    UpdateUserRequest:
-      type: object
-      properties:
-        name:
-          type: string
-        avatar:
-          type: string
-        link:
-          type: string
-        role:
-          type: string
-        metadata:
-          type: object
-    CreateUserRequest:
-      type: object
-      required:
-      - uid
-      - name
-      properties:
-        uid:
-          type: string
-        name:
-          type: string
-        avatar:
-          type: string
-        link:
-          type: string
-        role:
-          type: string
-        metadata:
-          type: object
-        withAuthToken:
-          type: boolean
-          description: Also generate an auth token for the new user.
-    UserList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/User'
-        meta:
-          type: object
-          properties:
-            pagination:
-              $ref: '#/components/schemas/Pagination'
-    Acknowledgement:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            success:
-              type: boolean
-            message:
-              type: string
-  parameters:
-    Page:
-      name: page
-      in: query
-      schema:
-        type: integer
-        default: 1
-    PerPage:
-      name: perPage
-      in: query
-      schema:
-        type: integer
-        default: 25
-        maximum: 100
-    Uid:
-      name: uid
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Unique user identifier.
   securitySchemes:
     apiKeyAuth:
       type: apiKey
