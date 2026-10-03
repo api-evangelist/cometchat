@@ -80,38 +80,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Acknowledgement'
 components:
-  parameters:
-    Uid:
-      name: uid
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Unique user identifier.
   schemas:
-    Pagination:
-      type: object
-      properties:
-        total:
-          type: integer
-        count:
-          type: integer
-        per_page:
-          type: integer
-        current_page:
-          type: integer
-        total_pages:
-          type: integer
-    FriendsRequest:
-      type: object
-      required:
-      - friends
-      properties:
-        friends:
-          type: array
-          items:
-            type: string
-          description: List of UIDs.
     UserList:
       type: object
       properties:
@@ -134,6 +103,16 @@ components:
               type: boolean
             message:
               type: string
+    FriendsRequest:
+      type: object
+      required:
+      - friends
+      properties:
+        friends:
+          type: array
+          items:
+            type: string
+          description: List of UIDs.
     User:
       type: object
       properties:
@@ -172,6 +151,27 @@ components:
         deactivatedAt:
           type: integer
           format: int64
+    Pagination:
+      type: object
+      properties:
+        total:
+          type: integer
+        count:
+          type: integer
+        per_page:
+          type: integer
+        current_page:
+          type: integer
+        total_pages:
+          type: integer
+  parameters:
+    Uid:
+      name: uid
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Unique user identifier.
   securitySchemes:
     apiKeyAuth:
       type: apiKey

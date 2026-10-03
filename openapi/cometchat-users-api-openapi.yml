@@ -159,54 +159,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/UserResponse'
 components:
-  parameters:
-    Uid:
-      name: uid
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Unique user identifier.
-    PerPage:
-      name: perPage
-      in: query
-      schema:
-        type: integer
-        default: 25
-        maximum: 100
-    Page:
-      name: page
-      in: query
-      schema:
-        type: integer
-        default: 1
   schemas:
-    Pagination:
-      type: object
-      properties:
-        total:
-          type: integer
-        count:
-          type: integer
-        per_page:
-          type: integer
-        current_page:
-          type: integer
-        total_pages:
-          type: integer
-    UpdateUserRequest:
-      type: object
-      properties:
-        name:
-          type: string
-        avatar:
-          type: string
-        link:
-          type: string
-        role:
-          type: string
-        metadata:
-          type: object
     UserList:
       type: object
       properties:
@@ -229,11 +182,6 @@ components:
               type: boolean
             message:
               type: string
-    UserResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/User'
     CreateUserRequest:
       type: object
       required:
@@ -293,6 +241,58 @@ components:
         deactivatedAt:
           type: integer
           format: int64
+    UserResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/User'
+    Pagination:
+      type: object
+      properties:
+        total:
+          type: integer
+        count:
+          type: integer
+        per_page:
+          type: integer
+        current_page:
+          type: integer
+        total_pages:
+          type: integer
+    UpdateUserRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        avatar:
+          type: string
+        link:
+          type: string
+        role:
+          type: string
+        metadata:
+          type: object
+  parameters:
+    Uid:
+      name: uid
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Unique user identifier.
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+    PerPage:
+      name: perPage
+      in: query
+      schema:
+        type: integer
+        default: 25
+        maximum: 100
   securitySchemes:
     apiKeyAuth:
       type: apiKey

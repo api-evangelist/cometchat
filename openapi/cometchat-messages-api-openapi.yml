@@ -153,19 +153,6 @@ paths:
                 $ref: '#/components/schemas/Acknowledgement'
 components:
   schemas:
-    Pagination:
-      type: object
-      properties:
-        total:
-          type: integer
-        count:
-          type: integer
-        per_page:
-          type: integer
-        current_page:
-          type: integer
-        total_pages:
-          type: integer
     Message:
       type: object
       properties:
@@ -213,37 +200,6 @@ components:
               type: boolean
             message:
               type: string
-    UpdateMessageRequest:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            text:
-              type: string
-            metadata:
-              type: object
-        tags:
-          type: array
-          items:
-            type: string
-    MessageList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Message'
-        meta:
-          type: object
-          properties:
-            pagination:
-              $ref: '#/components/schemas/Pagination'
-    MessageResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/Message'
     SendMessageRequest:
       type: object
       required:
@@ -285,20 +241,51 @@ components:
           type: array
           items:
             type: string
+    MessageResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Message'
+    UpdateMessageRequest:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            text:
+              type: string
+            metadata:
+              type: object
+        tags:
+          type: array
+          items:
+            type: string
+    Pagination:
+      type: object
+      properties:
+        total:
+          type: integer
+        count:
+          type: integer
+        per_page:
+          type: integer
+        current_page:
+          type: integer
+        total_pages:
+          type: integer
+    MessageList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+        meta:
+          type: object
+          properties:
+            pagination:
+              $ref: '#/components/schemas/Pagination'
   parameters:
-    PerPage:
-      name: perPage
-      in: query
-      schema:
-        type: integer
-        default: 25
-        maximum: 100
-    Page:
-      name: page
-      in: query
-      schema:
-        type: integer
-        default: 1
     MessageId:
       name: id
       in: path
@@ -307,6 +294,19 @@ components:
         type: integer
         format: int64
       description: Numeric message identifier.
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+    PerPage:
+      name: perPage
+      in: query
+      schema:
+        type: integer
+        default: 25
+        maximum: 100
   securitySchemes:
     apiKeyAuth:
       type: apiKey

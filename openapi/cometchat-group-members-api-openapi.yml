@@ -110,74 +110,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Acknowledgement'
 components:
-  parameters:
-    Uid:
-      name: uid
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Unique user identifier.
-    PerPage:
-      name: perPage
-      in: query
-      schema:
-        type: integer
-        default: 25
-        maximum: 100
-    Page:
-      name: page
-      in: query
-      schema:
-        type: integer
-        default: 1
-    Guid:
-      name: guid
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Unique group identifier (lowercased automatically).
   schemas:
-    Pagination:
-      type: object
-      properties:
-        total:
-          type: integer
-        count:
-          type: integer
-        per_page:
-          type: integer
-        current_page:
-          type: integer
-        total_pages:
-          type: integer
-    GroupMemberList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/GroupMember'
-        meta:
-          type: object
-          properties:
-            pagination:
-              $ref: '#/components/schemas/Pagination'
-    ChangeScopeRequest:
-      type: object
-      required:
-      - uid
-      - scope
-      properties:
-        uid:
-          type: string
-        scope:
-          type: string
-          enum:
-          - admin
-          - moderator
-          - participant
     Acknowledgement:
       type: object
       properties:
@@ -188,6 +121,13 @@ components:
               type: boolean
             message:
               type: string
+    AddMembersResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          additionalProperties:
+            type: string
     AddMembersRequest:
       type: object
       properties:
@@ -207,13 +147,18 @@ components:
           type: array
           items:
             type: string
-    AddMembersResponse:
+    GroupMemberList:
       type: object
       properties:
         data:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupMember'
+        meta:
           type: object
-          additionalProperties:
-            type: string
+          properties:
+            pagination:
+              $ref: '#/components/schemas/Pagination'
     GroupMember:
       type: object
       properties:
@@ -230,6 +175,61 @@ components:
         joinedAt:
           type: integer
           format: int64
+    Pagination:
+      type: object
+      properties:
+        total:
+          type: integer
+        count:
+          type: integer
+        per_page:
+          type: integer
+        current_page:
+          type: integer
+        total_pages:
+          type: integer
+    ChangeScopeRequest:
+      type: object
+      required:
+      - uid
+      - scope
+      properties:
+        uid:
+          type: string
+        scope:
+          type: string
+          enum:
+          - admin
+          - moderator
+          - participant
+  parameters:
+    Guid:
+      name: guid
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Unique group identifier (lowercased automatically).
+    Uid:
+      name: uid
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Unique user identifier.
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+    PerPage:
+      name: perPage
+      in: query
+      schema:
+        type: integer
+        default: 25
+        maximum: 100
   securitySchemes:
     apiKeyAuth:
       type: apiKey

@@ -169,6 +169,59 @@ paths:
                 $ref: '#/components/schemas/Acknowledgement'
 components:
   schemas:
+    Acknowledgement:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            success:
+              type: boolean
+            message:
+              type: string
+    WebhookResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Webhook'
+    WebhookList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Webhook'
+    CreateWebhookRequest:
+      type: object
+      required:
+      - url
+      - triggers
+      properties:
+        url:
+          type: string
+          format: uri
+        method:
+          type: string
+          enum:
+          - POST
+          - GET
+        triggers:
+          type: array
+          items:
+            type: string
+            description: e.g. message_sent, user_created, group_member_added.
+        authentication:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+              - basic
+              - none
+            username:
+              type: string
+            password:
+              type: string
     Webhook:
       type: object
       properties:
@@ -212,59 +265,6 @@ components:
           type: array
           items:
             type: string
-    WebhookList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Webhook'
-    Acknowledgement:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            success:
-              type: boolean
-            message:
-              type: string
-    CreateWebhookRequest:
-      type: object
-      required:
-      - url
-      - triggers
-      properties:
-        url:
-          type: string
-          format: uri
-        method:
-          type: string
-          enum:
-          - POST
-          - GET
-        triggers:
-          type: array
-          items:
-            type: string
-            description: e.g. message_sent, user_created, group_member_added.
-        authentication:
-          type: object
-          properties:
-            type:
-              type: string
-              enum:
-              - basic
-              - none
-            username:
-              type: string
-            password:
-              type: string
-    WebhookResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/Webhook'
   securitySchemes:
     apiKeyAuth:
       type: apiKey

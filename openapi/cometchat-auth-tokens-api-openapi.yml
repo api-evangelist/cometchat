@@ -109,37 +109,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Acknowledgement'
 components:
-  parameters:
-    Uid:
-      name: uid
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Unique user identifier.
   schemas:
-    AuthTokenResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/AuthToken'
-    AuthTokenList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/AuthToken'
-    AuthToken:
-      type: object
-      properties:
-        uid:
-          type: string
-        authToken:
-          type: string
-        createdAt:
-          type: integer
-          format: int64
     Acknowledgement:
       type: object
       properties:
@@ -150,6 +120,36 @@ components:
               type: boolean
             message:
               type: string
+    AuthToken:
+      type: object
+      properties:
+        uid:
+          type: string
+        authToken:
+          type: string
+        createdAt:
+          type: integer
+          format: int64
+    AuthTokenList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuthToken'
+    AuthTokenResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/AuthToken'
+  parameters:
+    Uid:
+      name: uid
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Unique user identifier.
   securitySchemes:
     apiKeyAuth:
       type: apiKey

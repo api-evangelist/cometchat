@@ -61,6 +61,15 @@ paths:
               schema:
                 $ref: '#/components/schemas/Acknowledgement'
 components:
+  parameters:
+    MessageId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int64
+      description: Numeric message identifier.
   schemas:
     Acknowledgement:
       type: object
@@ -72,15 +81,6 @@ components:
               type: boolean
             message:
               type: string
-  parameters:
-    MessageId:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: integer
-        format: int64
-      description: Numeric message identifier.
   securitySchemes:
     apiKeyAuth:
       type: apiKey
