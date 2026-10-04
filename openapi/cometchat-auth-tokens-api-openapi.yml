@@ -110,6 +110,13 @@ paths:
                 $ref: '#/components/schemas/Acknowledgement'
 components:
   schemas:
+    AuthTokenList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuthToken'
     Acknowledgement:
       type: object
       properties:
@@ -130,13 +137,6 @@ components:
         createdAt:
           type: integer
           format: int64
-    AuthTokenList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/AuthToken'
     AuthTokenResponse:
       type: object
       properties:

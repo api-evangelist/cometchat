@@ -153,43 +153,6 @@ paths:
                 $ref: '#/components/schemas/Acknowledgement'
 components:
   schemas:
-    Message:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        conversationId:
-          type: string
-        sender:
-          type: string
-        receiver:
-          type: string
-        receiverType:
-          type: string
-          enum:
-          - user
-          - group
-        category:
-          type: string
-          enum:
-          - message
-          - action
-          - call
-          - custom
-        type:
-          type: string
-        data:
-          type: object
-        sentAt:
-          type: integer
-          format: int64
-        updatedAt:
-          type: integer
-          format: int64
-        deletedAt:
-          type: integer
-          format: int64
     Acknowledgement:
       type: object
       properties:
@@ -200,6 +163,20 @@ components:
               type: boolean
             message:
               type: string
+    UpdateMessageRequest:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            text:
+              type: string
+            metadata:
+              type: object
+        tags:
+          type: array
+          items:
+            type: string
     SendMessageRequest:
       type: object
       required:
@@ -241,25 +218,43 @@ components:
           type: array
           items:
             type: string
-    MessageResponse:
+    Message:
       type: object
       properties:
-        data:
-          $ref: '#/components/schemas/Message'
-    UpdateMessageRequest:
-      type: object
-      properties:
+        id:
+          type: integer
+          format: int64
+        conversationId:
+          type: string
+        sender:
+          type: string
+        receiver:
+          type: string
+        receiverType:
+          type: string
+          enum:
+          - user
+          - group
+        category:
+          type: string
+          enum:
+          - message
+          - action
+          - call
+          - custom
+        type:
+          type: string
         data:
           type: object
-          properties:
-            text:
-              type: string
-            metadata:
-              type: object
-        tags:
-          type: array
-          items:
-            type: string
+        sentAt:
+          type: integer
+          format: int64
+        updatedAt:
+          type: integer
+          format: int64
+        deletedAt:
+          type: integer
+          format: int64
     Pagination:
       type: object
       properties:
@@ -285,6 +280,11 @@ components:
           properties:
             pagination:
               $ref: '#/components/schemas/Pagination'
+    MessageResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Message'
   parameters:
     MessageId:
       name: id

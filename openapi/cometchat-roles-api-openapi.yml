@@ -109,6 +109,13 @@ paths:
                 $ref: '#/components/schemas/Acknowledgement'
 components:
   schemas:
+    RoleList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Role'
     Acknowledgement:
       type: object
       properties:
@@ -119,22 +126,6 @@ components:
               type: boolean
             message:
               type: string
-    CreateRoleRequest:
-      type: object
-      required:
-      - role
-      - name
-      properties:
-        role:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-        permissions:
-          type: array
-          items:
-            type: string
     RoleResponse:
       type: object
       properties:
@@ -153,13 +144,22 @@ components:
           type: array
           items:
             type: string
-    RoleList:
+    CreateRoleRequest:
       type: object
+      required:
+      - role
+      - name
       properties:
-        data:
+        role:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        permissions:
           type: array
           items:
-            $ref: '#/components/schemas/Role'
+            type: string
   securitySchemes:
     apiKeyAuth:
       type: apiKey

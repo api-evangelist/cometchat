@@ -160,6 +160,16 @@ paths:
                 $ref: '#/components/schemas/UserResponse'
 components:
   schemas:
+    Acknowledgement:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            success:
+              type: boolean
+            message:
+              type: string
     UserList:
       type: object
       properties:
@@ -172,24 +182,27 @@ components:
           properties:
             pagination:
               $ref: '#/components/schemas/Pagination'
-    Acknowledgement:
+    UserResponse:
       type: object
       properties:
         data:
-          type: object
-          properties:
-            success:
-              type: boolean
-            message:
-              type: string
-    CreateUserRequest:
+          $ref: '#/components/schemas/User'
+    Pagination:
       type: object
-      required:
-      - uid
-      - name
       properties:
-        uid:
-          type: string
+        total:
+          type: integer
+        count:
+          type: integer
+        per_page:
+          type: integer
+        current_page:
+          type: integer
+        total_pages:
+          type: integer
+    UpdateUserRequest:
+      type: object
+      properties:
         name:
           type: string
         avatar:
@@ -200,9 +213,6 @@ components:
           type: string
         metadata:
           type: object
-        withAuthToken:
-          type: boolean
-          description: Also generate an auth token for the new user.
     User:
       type: object
       properties:
@@ -241,27 +251,14 @@ components:
         deactivatedAt:
           type: integer
           format: int64
-    UserResponse:
+    CreateUserRequest:
       type: object
+      required:
+      - uid
+      - name
       properties:
-        data:
-          $ref: '#/components/schemas/User'
-    Pagination:
-      type: object
-      properties:
-        total:
-          type: integer
-        count:
-          type: integer
-        per_page:
-          type: integer
-        current_page:
-          type: integer
-        total_pages:
-          type: integer
-    UpdateUserRequest:
-      type: object
-      properties:
+        uid:
+          type: string
         name:
           type: string
         avatar:
@@ -272,7 +269,16 @@ components:
           type: string
         metadata:
           type: object
+        withAuthToken:
+          type: boolean
+          description: Also generate an auth token for the new user.
   parameters:
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
     Uid:
       name: uid
       in: path
@@ -280,12 +286,6 @@ components:
       schema:
         type: string
       description: Unique user identifier.
-    Page:
-      name: page
-      in: query
-      schema:
-        type: integer
-        default: 1
     PerPage:
       name: perPage
       in: query

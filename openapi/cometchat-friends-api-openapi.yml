@@ -81,6 +81,16 @@ paths:
                 $ref: '#/components/schemas/Acknowledgement'
 components:
   schemas:
+    Acknowledgement:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            success:
+              type: boolean
+            message:
+              type: string
     UserList:
       type: object
       properties:
@@ -93,26 +103,19 @@ components:
           properties:
             pagination:
               $ref: '#/components/schemas/Pagination'
-    Acknowledgement:
+    Pagination:
       type: object
       properties:
-        data:
-          type: object
-          properties:
-            success:
-              type: boolean
-            message:
-              type: string
-    FriendsRequest:
-      type: object
-      required:
-      - friends
-      properties:
-        friends:
-          type: array
-          items:
-            type: string
-          description: List of UIDs.
+        total:
+          type: integer
+        count:
+          type: integer
+        per_page:
+          type: integer
+        current_page:
+          type: integer
+        total_pages:
+          type: integer
     User:
       type: object
       properties:
@@ -151,19 +154,16 @@ components:
         deactivatedAt:
           type: integer
           format: int64
-    Pagination:
+    FriendsRequest:
       type: object
+      required:
+      - friends
       properties:
-        total:
-          type: integer
-        count:
-          type: integer
-        per_page:
-          type: integer
-        current_page:
-          type: integer
-        total_pages:
-          type: integer
+        friends:
+          type: array
+          items:
+            type: string
+          description: List of UIDs.
   parameters:
     Uid:
       name: uid

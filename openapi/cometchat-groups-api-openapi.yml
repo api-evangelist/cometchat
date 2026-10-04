@@ -112,18 +112,6 @@ paths:
                 $ref: '#/components/schemas/Acknowledgement'
 components:
   schemas:
-    GroupList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Group'
-        meta:
-          type: object
-          properties:
-            pagination:
-              $ref: '#/components/schemas/Pagination'
     Acknowledgement:
       type: object
       properties:
@@ -151,43 +139,24 @@ components:
           type: array
           items:
             type: string
-    CreateGroupRequest:
-      type: object
-      required:
-      - guid
-      - name
-      - type
-      properties:
-        guid:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-          enum:
-          - public
-          - private
-          - password
-        password:
-          type: string
-          description: Required when type is password.
-        icon:
-          type: string
-        description:
-          type: string
-        owner:
-          type: string
-        metadata:
-          type: object
-        tags:
-          type: array
-          items:
-            type: string
     GroupResponse:
       type: object
       properties:
         data:
           $ref: '#/components/schemas/Group'
+    Pagination:
+      type: object
+      properties:
+        total:
+          type: integer
+        count:
+          type: integer
+        per_page:
+          type: integer
+        current_page:
+          type: integer
+        total_pages:
+          type: integer
     Group:
       type: object
       properties:
@@ -223,19 +192,50 @@ components:
         updatedAt:
           type: integer
           format: int64
-    Pagination:
+    CreateGroupRequest:
+      type: object
+      required:
+      - guid
+      - name
+      - type
+      properties:
+        guid:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+          - public
+          - private
+          - password
+        password:
+          type: string
+          description: Required when type is password.
+        icon:
+          type: string
+        description:
+          type: string
+        owner:
+          type: string
+        metadata:
+          type: object
+        tags:
+          type: array
+          items:
+            type: string
+    GroupList:
       type: object
       properties:
-        total:
-          type: integer
-        count:
-          type: integer
-        per_page:
-          type: integer
-        current_page:
-          type: integer
-        total_pages:
-          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Group'
+        meta:
+          type: object
+          properties:
+            pagination:
+              $ref: '#/components/schemas/Pagination'
   parameters:
     Guid:
       name: guid

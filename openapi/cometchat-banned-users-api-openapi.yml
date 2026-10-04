@@ -88,22 +88,6 @@ components:
               type: boolean
             message:
               type: string
-    GroupMember:
-      type: object
-      properties:
-        uid:
-          type: string
-        name:
-          type: string
-        scope:
-          type: string
-          enum:
-          - admin
-          - moderator
-          - participant
-        joinedAt:
-          type: integer
-          format: int64
     GroupMemberList:
       type: object
       properties:
@@ -138,6 +122,22 @@ components:
           type: integer
         total_pages:
           type: integer
+    GroupMember:
+      type: object
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+        scope:
+          type: string
+          enum:
+          - admin
+          - moderator
+          - participant
+        joinedAt:
+          type: integer
+          format: int64
   parameters:
     Guid:
       name: guid
