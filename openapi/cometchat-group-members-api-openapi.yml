@@ -111,35 +111,19 @@ paths:
                 $ref: '#/components/schemas/Acknowledgement'
 components:
   schemas:
-    Acknowledgement:
+    Pagination:
       type: object
       properties:
-        data:
-          type: object
-          properties:
-            success:
-              type: boolean
-            message:
-              type: string
-    AddMembersRequest:
-      type: object
-      properties:
-        participants:
-          type: array
-          items:
-            type: string
-        moderators:
-          type: array
-          items:
-            type: string
-        admins:
-          type: array
-          items:
-            type: string
-        usersToBan:
-          type: array
-          items:
-            type: string
+        total:
+          type: integer
+        count:
+          type: integer
+        per_page:
+          type: integer
+        current_page:
+          type: integer
+        total_pages:
+          type: integer
     ChangeScopeRequest:
       type: object
       required:
@@ -166,19 +150,6 @@ components:
           properties:
             pagination:
               $ref: '#/components/schemas/Pagination'
-    Pagination:
-      type: object
-      properties:
-        total:
-          type: integer
-        count:
-          type: integer
-        per_page:
-          type: integer
-        current_page:
-          type: integer
-        total_pages:
-          type: integer
     GroupMember:
       type: object
       properties:
@@ -195,12 +166,41 @@ components:
         joinedAt:
           type: integer
           format: int64
+    Acknowledgement:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            success:
+              type: boolean
+            message:
+              type: string
     AddMembersResponse:
       type: object
       properties:
         data:
           type: object
           additionalProperties:
+            type: string
+    AddMembersRequest:
+      type: object
+      properties:
+        participants:
+          type: array
+          items:
+            type: string
+        moderators:
+          type: array
+          items:
+            type: string
+        admins:
+          type: array
+          items:
+            type: string
+        usersToBan:
+          type: array
+          items:
             type: string
   parameters:
     Guid:
@@ -210,19 +210,6 @@ components:
       schema:
         type: string
       description: Unique group identifier (lowercased automatically).
-    Page:
-      name: page
-      in: query
-      schema:
-        type: integer
-        default: 1
-    Uid:
-      name: uid
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Unique user identifier.
     PerPage:
       name: perPage
       in: query
@@ -230,6 +217,19 @@ components:
         type: integer
         default: 25
         maximum: 100
+    Uid:
+      name: uid
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Unique user identifier.
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
   securitySchemes:
     apiKeyAuth:
       type: apiKey

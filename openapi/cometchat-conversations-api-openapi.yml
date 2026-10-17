@@ -79,33 +79,25 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConversationResponse'
 components:
-  parameters:
-    Page:
-      name: page
-      in: query
-      schema:
-        type: integer
-        default: 1
-    PerPage:
-      name: perPage
-      in: query
-      schema:
-        type: integer
-        default: 25
-        maximum: 100
   schemas:
-    ConversationList:
+    Pagination:
+      type: object
+      properties:
+        total:
+          type: integer
+        count:
+          type: integer
+        per_page:
+          type: integer
+        current_page:
+          type: integer
+        total_pages:
+          type: integer
+    ConversationResponse:
       type: object
       properties:
         data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Conversation'
-        meta:
-          type: object
-          properties:
-            pagination:
-              $ref: '#/components/schemas/Pagination'
+          $ref: '#/components/schemas/Conversation'
     Message:
       type: object
       properties:
@@ -143,11 +135,6 @@ components:
         deletedAt:
           type: integer
           format: int64
-    ConversationResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/Conversation'
     Conversation:
       type: object
       properties:
@@ -165,19 +152,32 @@ components:
         updatedAt:
           type: integer
           format: int64
-    Pagination:
+    ConversationList:
       type: object
       properties:
-        total:
-          type: integer
-        count:
-          type: integer
-        per_page:
-          type: integer
-        current_page:
-          type: integer
-        total_pages:
-          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Conversation'
+        meta:
+          type: object
+          properties:
+            pagination:
+              $ref: '#/components/schemas/Pagination'
+  parameters:
+    PerPage:
+      name: perPage
+      in: query
+      schema:
+        type: integer
+        default: 25
+        maximum: 100
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
   securitySchemes:
     apiKeyAuth:
       type: apiKey

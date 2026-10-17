@@ -112,16 +112,56 @@ paths:
                 $ref: '#/components/schemas/Acknowledgement'
 components:
   schemas:
-    Acknowledgement:
+    Pagination:
+      type: object
+      properties:
+        total:
+          type: integer
+        count:
+          type: integer
+        per_page:
+          type: integer
+        current_page:
+          type: integer
+        total_pages:
+          type: integer
+    GroupResponse:
       type: object
       properties:
         data:
+          $ref: '#/components/schemas/Group'
+    CreateGroupRequest:
+      type: object
+      required:
+      - guid
+      - name
+      - type
+      properties:
+        guid:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+          - public
+          - private
+          - password
+        password:
+          type: string
+          description: Required when type is password.
+        icon:
+          type: string
+        description:
+          type: string
+        owner:
+          type: string
+        metadata:
           type: object
-          properties:
-            success:
-              type: boolean
-            message:
-              type: string
+        tags:
+          type: array
+          items:
+            type: string
     UpdateGroupRequest:
       type: object
       properties:
@@ -139,24 +179,16 @@ components:
           type: array
           items:
             type: string
-    GroupResponse:
+    Acknowledgement:
       type: object
       properties:
         data:
-          $ref: '#/components/schemas/Group'
-    Pagination:
-      type: object
-      properties:
-        total:
-          type: integer
-        count:
-          type: integer
-        per_page:
-          type: integer
-        current_page:
-          type: integer
-        total_pages:
-          type: integer
+          type: object
+          properties:
+            success:
+              type: boolean
+            message:
+              type: string
     Group:
       type: object
       properties:
@@ -192,38 +224,6 @@ components:
         updatedAt:
           type: integer
           format: int64
-    CreateGroupRequest:
-      type: object
-      required:
-      - guid
-      - name
-      - type
-      properties:
-        guid:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-          enum:
-          - public
-          - private
-          - password
-        password:
-          type: string
-          description: Required when type is password.
-        icon:
-          type: string
-        description:
-          type: string
-        owner:
-          type: string
-        metadata:
-          type: object
-        tags:
-          type: array
-          items:
-            type: string
     GroupList:
       type: object
       properties:
@@ -244,12 +244,6 @@ components:
       schema:
         type: string
       description: Unique group identifier (lowercased automatically).
-    Page:
-      name: page
-      in: query
-      schema:
-        type: integer
-        default: 1
     PerPage:
       name: perPage
       in: query
@@ -257,6 +251,12 @@ components:
         type: integer
         default: 25
         maximum: 100
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
   securitySchemes:
     apiKeyAuth:
       type: apiKey

@@ -81,41 +81,6 @@ paths:
                 $ref: '#/components/schemas/Acknowledgement'
 components:
   schemas:
-    Acknowledgement:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            success:
-              type: boolean
-            message:
-              type: string
-    UserList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/User'
-        meta:
-          type: object
-          properties:
-            pagination:
-              $ref: '#/components/schemas/Pagination'
-    Pagination:
-      type: object
-      properties:
-        total:
-          type: integer
-        count:
-          type: integer
-        per_page:
-          type: integer
-        current_page:
-          type: integer
-        total_pages:
-          type: integer
     User:
       type: object
       properties:
@@ -154,6 +119,31 @@ components:
         deactivatedAt:
           type: integer
           format: int64
+    Pagination:
+      type: object
+      properties:
+        total:
+          type: integer
+        count:
+          type: integer
+        per_page:
+          type: integer
+        current_page:
+          type: integer
+        total_pages:
+          type: integer
+    UserList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        meta:
+          type: object
+          properties:
+            pagination:
+              $ref: '#/components/schemas/Pagination'
     FriendsRequest:
       type: object
       required:
@@ -164,6 +154,16 @@ components:
           items:
             type: string
           description: List of UIDs.
+    Acknowledgement:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            success:
+              type: boolean
+            message:
+              type: string
   parameters:
     Uid:
       name: uid

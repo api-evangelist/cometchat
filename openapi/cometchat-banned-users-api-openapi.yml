@@ -78,37 +78,6 @@ paths:
                 $ref: '#/components/schemas/Acknowledgement'
 components:
   schemas:
-    Acknowledgement:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            success:
-              type: boolean
-            message:
-              type: string
-    GroupMemberList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/GroupMember'
-        meta:
-          type: object
-          properties:
-            pagination:
-              $ref: '#/components/schemas/Pagination'
-    BanUsersRequest:
-      type: object
-      required:
-      - uids
-      properties:
-        uids:
-          type: array
-          items:
-            type: string
     Pagination:
       type: object
       properties:
@@ -122,6 +91,18 @@ components:
           type: integer
         total_pages:
           type: integer
+    GroupMemberList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupMember'
+        meta:
+          type: object
+          properties:
+            pagination:
+              $ref: '#/components/schemas/Pagination'
     GroupMember:
       type: object
       properties:
@@ -138,6 +119,25 @@ components:
         joinedAt:
           type: integer
           format: int64
+    Acknowledgement:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            success:
+              type: boolean
+            message:
+              type: string
+    BanUsersRequest:
+      type: object
+      required:
+      - uids
+      properties:
+        uids:
+          type: array
+          items:
+            type: string
   parameters:
     Guid:
       name: guid

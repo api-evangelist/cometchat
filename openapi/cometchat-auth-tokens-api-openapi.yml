@@ -110,6 +110,21 @@ paths:
                 $ref: '#/components/schemas/Acknowledgement'
 components:
   schemas:
+    AuthTokenResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/AuthToken'
+    AuthToken:
+      type: object
+      properties:
+        uid:
+          type: string
+        authToken:
+          type: string
+        createdAt:
+          type: integer
+          format: int64
     AuthTokenList:
       type: object
       properties:
@@ -127,21 +142,6 @@ components:
               type: boolean
             message:
               type: string
-    AuthToken:
-      type: object
-      properties:
-        uid:
-          type: string
-        authToken:
-          type: string
-        createdAt:
-          type: integer
-          format: int64
-    AuthTokenResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/AuthToken'
   parameters:
     Uid:
       name: uid
