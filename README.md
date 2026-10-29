@@ -1,4 +1,4 @@
-# CometChat (cometchat)
+# CometChat
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,200 +66,140 @@
 
 CometChat is an in-app messaging platform offering chat, voice, and video SDKs plus a server-side REST Management API. The REST API (v3) manages users, auth tokens, groups, group members, messages, conversations, reactions, roles, and webhooks for an app, while client SDKs and a managed realtime WebSocket layer deliver one-to-one and group conversations, presence, and calling.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/cometchat/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/cometchat/refs/heads/main/apis.yml)
+**Areas:** Chat · Messaging · Voice · Video · SDK · Real-Time
 
-## Tags
+## CometChat on APIs.io
 
-- Chat
-- Messaging
-- Voice
-- Video
-- SDK
-- Realtime
+Everything profiled for CometChat is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/cometchat/](https://apis.io/providers/cometchat/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (13)
 
-- **Created:** 2026-06-20
-- **Modified:** 2026-06-20
+- [CometChat Realtime & Client SDK](https://apis.io/apis/cometchat/cometchat-realtime-sdk/) — Client SDKs (JavaScript, React, React Native, Android, iOS, Flutter, Ionic) connect over a managed WebSocket layer for realtime message delivery, typing…
+- [CometChat Auth Tokens API](https://apis.io/apis/cometchat/cometchat-auth-tokens-api/) — Per-user authentication tokens for SDK login
+- [CometChat Banned Users API](https://apis.io/apis/cometchat/cometchat-banned-users-api/) — Ban and unban users from groups
+- [CometChat Blocked Users API](https://apis.io/apis/cometchat/cometchat-blocked-users-api/) — Block and unblock users
+- [CometChat Conversations API](https://apis.io/apis/cometchat/cometchat-conversations-api/) — List conversations and manage read/delivered state
+- [CometChat Friends API](https://apis.io/apis/cometchat/cometchat-friends-api/) — User-to-user friend relationships
+- [CometChat Group Members API](https://apis.io/apis/cometchat/cometchat-group-members-api/) — Add, list, kick, and scope group members
+- [CometChat Groups API](https://apis.io/apis/cometchat/cometchat-groups-api/) — Create and manage groups
+- [CometChat Messages API](https://apis.io/apis/cometchat/cometchat-messages-api/) — Send, list, edit, and delete messages
+- [CometChat Reactions API](https://apis.io/apis/cometchat/cometchat-reactions-api/) — Add and remove message reactions
+- [CometChat Roles API](https://apis.io/apis/cometchat/cometchat-roles-api/) — Custom roles and permissions
+- [CometChat Users API](https://apis.io/apis/cometchat/cometchat-users-api/) — Create and manage app users
+- [CometChat Webhooks API](https://apis.io/apis/cometchat/cometchat-webhooks-api/) — Register webhooks and manage event triggers
 
-## APIs
+### Published properties
 
-### CometChat Users API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Create, list, retrieve, update, delete, deactivate, and reactivate users, plus issue and manage per-user authentication tokens used by client SDKs to log a user into an app.
+#### Agentic access (1)
 
-- **Human URL:** [https://www.cometchat.com/docs/rest-api/users](https://www.cometchat.com/docs/rest-api/users)
-- **Base URL:** `https://{appId}.api-{region}.cometchat.io/v3`
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Tags
+- [Cometchat Agentic Access](https://apis.io/agentic-access/cometchat/cometchat-agentic-access/)
 
-- Users
-- Identity
-- Auth Tokens
+#### Collections (13)
 
-#### Properties
+Postman and Open Collection request collections.
 
-- [Documentation](https://www.cometchat.com/docs/rest-api/users)
-- [API Reference](https://www.cometchat.com/docs/rest-api/chat-apis)
-- [OpenAPI](openapi/cometchat-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/cometchat.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/cometchat.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [CometChat REST Management API](https://apis.io/collections/cometchat/open-cometchat/)
+- [CometChat REST Management Auth Tokens API](https://apis.io/collections/cometchat/open-cometchat-auth-tokens-api/)
+- [CometChat REST Management Auth Tokens Banned Users API](https://apis.io/collections/cometchat/open-cometchat-banned-users-api/)
+- [CometChat REST Management Auth Tokens Blocked Users API](https://apis.io/collections/cometchat/open-cometchat-blocked-users-api/)
+- [CometChat REST Management Auth Tokens Conversations API](https://apis.io/collections/cometchat/open-cometchat-conversations-api/)
+- [CometChat REST Management Auth Tokens Friends API](https://apis.io/collections/cometchat/open-cometchat-friends-api/)
+- [CometChat REST Management Auth Tokens Group Members API](https://apis.io/collections/cometchat/open-cometchat-group-members-api/)
+- [CometChat REST Management Auth Tokens Groups API](https://apis.io/collections/cometchat/open-cometchat-groups-api/)
+- [CometChat REST Management Auth Tokens Messages API](https://apis.io/collections/cometchat/open-cometchat-messages-api/)
+- [CometChat REST Management Auth Tokens Reactions API](https://apis.io/collections/cometchat/open-cometchat-reactions-api/)
+- [CometChat REST Management Auth Tokens Roles API](https://apis.io/collections/cometchat/open-cometchat-roles-api/)
+- [CometChat REST Management Auth Tokens Users API](https://apis.io/collections/cometchat/open-cometchat-users-api/)
+- [CometChat REST Management Auth Tokens Webhooks API](https://apis.io/collections/cometchat/open-cometchat-webhooks-api/)
 
-### CometChat Groups & Members API
+#### Security (2)
 
-Create, list, update, and delete public, private, and password groups, and add, list, kick, and change the scope of group members (participant, moderator, admin).
+Authentication, trust centre, and vulnerability disclosure.
 
-- **Human URL:** [https://www.cometchat.com/docs/rest-api/groups](https://www.cometchat.com/docs/rest-api/groups)
-- **Base URL:** `https://{appId}.api-{region}.cometchat.io/v3`
+- [Cometchat Authentication](https://apis.io/security/cometchat/cometchat-authentication/)
+- [Cometchat Domain Security](https://apis.io/security/cometchat/cometchat-domain-security/)
 
-#### Tags
+#### Plans and pricing (1)
 
-- Groups
-- Members
-- Membership
+Published plans, tiers and prices.
 
-#### Properties
+- [Cometchat Plans Pricing](https://apis.io/plans/cometchat/cometchat-plans-pricing/)
 
-- [Documentation](https://www.cometchat.com/docs/rest-api/groups)
-- [API Reference](https://www.cometchat.com/docs/rest-api/group-members)
-- [OpenAPI](openapi/cometchat-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/cometchat.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/cometchat.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Rate limits (1)
 
-### CometChat Messages API
+Published request limits.
 
-Send, list, retrieve, update, and delete one-to-one and group messages, send threaded and bot messages, and add, remove, and list message reactions.
+- [Cometchat Rate Limits](https://apis.io/rate-limits/cometchat/cometchat-rate-limits/)
 
-- **Human URL:** [https://www.cometchat.com/docs/rest-api/messages](https://www.cometchat.com/docs/rest-api/messages)
-- **Base URL:** `https://{appId}.api-{region}.cometchat.io/v3`
+#### FinOps (1)
 
-#### Tags
+What the API costs to run, by operation.
 
-- Messages
-- Threads
-- Reactions
+- [Cometchat Finops](https://apis.io/finops/cometchat/cometchat-finops/)
 
-#### Properties
+## Where to find this API
 
-- [Documentation](https://www.cometchat.com/docs/rest-api/messages)
-- [API Reference](https://www.cometchat.com/docs/rest-api/messages/list-messages)
-- [OpenAPI](openapi/cometchat-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/cometchat.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/cometchat.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-### CometChat Conversations API
-
-List and retrieve user and group conversations, update conversation metadata, and mark conversations as read, delivered, or unread for managing inbox state server-side.
-
-- **Human URL:** [https://www.cometchat.com/docs/rest-api/conversations](https://www.cometchat.com/docs/rest-api/conversations)
-- **Base URL:** `https://{appId}.api-{region}.cometchat.io/v3`
-
-#### Tags
-
-- Conversations
-- Read Receipts
-- Unread
-
-#### Properties
-
-- [Documentation](https://www.cometchat.com/docs/rest-api/conversations)
-- [API Reference](https://www.cometchat.com/docs/rest-api/conversations/list-conversations)
-- [OpenAPI](openapi/cometchat-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/cometchat.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/cometchat.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### CometChat Roles API
-
-Create, list, retrieve, update, and delete custom roles that govern what users and group members can do within an app.
-
-- **Human URL:** [https://www.cometchat.com/docs/rest-api/roles](https://www.cometchat.com/docs/rest-api/roles)
-- **Base URL:** `https://{appId}.api-{region}.cometchat.io/v3`
-
-#### Tags
-
-- Roles
-- Permissions
-- Access Control
-
-#### Properties
-
-- [Documentation](https://www.cometchat.com/docs/rest-api/roles)
-- [OpenAPI](openapi/cometchat-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/cometchat.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/cometchat.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### CometChat Relationships API
-
-Manage user-to-user relationships - add, list, and remove friends; block, unblock, and list blocked users; and ban, unban, and list users banned from a group.
-
-- **Human URL:** [https://www.cometchat.com/docs/rest-api/friends](https://www.cometchat.com/docs/rest-api/friends)
-- **Base URL:** `https://{appId}.api-{region}.cometchat.io/v3`
-
-#### Tags
-
-- Friends
-- Blocked Users
-- Banned Users
-
-#### Properties
-
-- [Documentation](https://www.cometchat.com/docs/rest-api/friends)
-- [API Reference](https://www.cometchat.com/docs/rest-api/blocked-users)
-- [OpenAPI](openapi/cometchat-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/cometchat.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/cometchat.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### CometChat Webhooks API
-
-Register, list, update, and delete webhooks and manage which event triggers (message sent, user created, group joined, and others) deliver callbacks to your endpoints.
-
-- **Human URL:** [https://www.cometchat.com/docs/rest-api/management-apis/webhooks/overview](https://www.cometchat.com/docs/rest-api/management-apis/webhooks/overview)
-- **Base URL:** `https://{appId}.api-{region}.cometchat.io/v3`
-
-#### Tags
-
-- Webhooks
-- Events
-- Triggers
-
-#### Properties
-
-- [Documentation](https://www.cometchat.com/docs/rest-api/management-apis/webhooks/overview)
-- [OpenAPI](openapi/cometchat-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/cometchat.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/cometchat.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### CometChat Realtime & Client SDK
-
-Client SDKs (JavaScript, React, React Native, Android, iOS, Flutter, Ionic) connect over a managed WebSocket layer for realtime message delivery, typing indicators, presence, and read receipts. The socket is established and maintained by the SDK via connect()/disconnect(); CometChat does not publish a raw wss endpoint or message protocol.
-
-- **Human URL:** [https://www.cometchat.com/docs/sdk/javascript/overview](https://www.cometchat.com/docs/sdk/javascript/overview)
-- **Base URL:** `https://{appId}.api-{region}.cometchat.io/v3`
-
-#### Tags
-
-- Realtime
-- WebSocket
-- SDK
-- Presence
-
-#### Properties
-
-- [Documentation](https://www.cometchat.com/docs/sdk/javascript/overview)
-- [Documentation](https://www.cometchat.com/docs/sdk/javascript/managing-web-sockets-connections-manually)
-- [AsyncAPI](asyncapi/cometchat-asyncapi.yml) — [AsyncAPI Specification](https://www.asyncapi.com/docs/reference/specification/latest)
-
-## Common Properties
-
-- [GitHub Organization](https://github.com/cometchat)
-- [LinkedIn](https://www.linkedin.com/company/cometchat)
 - [Website](https://www.cometchat.com)
 - [Documentation](https://www.cometchat.com/docs)
-- [Plans](plans/cometchat-plans-pricing.yml)
-- [Rate Limits](rate-limits/cometchat-rate-limits.yml)
-- [Fin Ops](finops/cometchat-finops.yml)
+- [Pricing](https://www.cometchat.com/pricing)
+- [Blog](https://www.cometchat.com/blog)
+- [GitHub](https://github.com/cometchat)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 33.9** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 49.0 |
+| Contract governance | 0.0 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 32.1 |
+| Access clarity | 42.1 |
+
+**Agent readiness 17.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 11.8** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/cometchat/](https://apis.io/providers/cometchat/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for CometChat: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/cometchat/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
